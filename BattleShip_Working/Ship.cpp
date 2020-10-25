@@ -32,10 +32,10 @@ void Ship::readInShips() {
     }
 
     for (int i = 0; i < shipContainer.size(); i++) {
-        cout << shipContainer[i].shipType << endl;
-        cout << shipContainer[i].shipSize << endl;
-        cout << shipContainer[i].shipLocation << endl;
-        cout << shipContainer[i].shipOrientation << endl;
+//        cout << shipContainer[i].shipType << endl;
+//        cout << shipContainer[i].shipSize << endl;
+//        cout << shipContainer[i].shipLocation << endl;
+//        cout << shipContainer[i].shipOrientation << endl;
     }
 
     infile.close();
@@ -64,14 +64,33 @@ void Ship::addSizeToShips(ShipData &shipData) {
  * @param container
  * @return
  */
-bool Ship::checkShipPlacement(vector<ShipData> &container) {
-    for (int i = 0; i < container.size(); i++) {
+//bool Ship::checkShipPlacement(vector<ShipData> &container) {
+//    for (int i = 0; i < container.size(); i++) {
+//
+//    }
+//}
 
+void Ship::placeShipOnGrid() {
+    for (int i = 0; i < shipContainer.size(); i++) {
+        Grid grid = chooseGridLoc(shipContainer[i].shipLocation);
+
+        if (shipContainer[i].shipOrientation == "H") {
+            for (int j = grid.getRow(); j < grid.getRow(); j++) {
+                for (int k = grid.getColumn(); j < stoi(shipContainer[i].shipSize); k++) {
+                    grid.GRID[j][k] = shipContainer[i].shipType[0];
+                }
+            }
+        }
+        else if (shipContainer[i].shipOrientation == "V") {
+            for (int j = grid.getRow(); j < stoi(shipContainer[i].shipSize); j++) {
+                for (int k = grid.getColumn(); k < grid.getColumn(); k++) {
+                    grid.GRID[j][k] = shipContainer[i].shipType[0];
+                }
+            }
+        }
     }
-}
-
-void Ship::populateGrid(ShipData &shipData) {
-
+//    grid.createGrid();
+    grid.printGrid();
 }
 
 

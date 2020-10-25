@@ -7,8 +7,14 @@ using namespace std;
 
 int main()
 {
+//    Grid grid;
+//    grid.createGrid();
+
     Ship ship;
     ship.readInShips();
+    ship.placeShipOnGrid();
+
+//    grid.printGrid();
 
     
     // Grid grid;

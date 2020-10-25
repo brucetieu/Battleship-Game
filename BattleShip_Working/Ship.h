@@ -4,7 +4,7 @@
 #include <vector>
 #include "Grid.h"
 
-class Ship
+class Ship : public Grid
 {
 // private:
     struct ShipData
@@ -20,9 +20,9 @@ class Ship
 public:
     Ship();
     void readInShips();
-    bool checkShipPlacement(vector<ShipData> &container);
+//    bool checkShipPlacement(vector<ShipData> &container);
     void addSizeToShips(ShipData &shipData);
-    void populateGrid(ShipData &shipData);
+    void placeShipOnGrid();
 };
 
 #endif

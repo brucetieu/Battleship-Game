@@ -7,13 +7,14 @@ class Grid
 private:
     static const int MAX_ROW = 10;
     static const int MAX_COLUMN = 10;
-    char GRID[MAX_ROW][MAX_COLUMN] = {{'0'}};
+//    char GRID[MAX_ROW][MAX_COLUMN] = {{'0'}};
     int row, column;
     std::string location;
     const std::vector<char> MAP = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
 
 
 public:
+    char GRID[MAX_ROW][MAX_COLUMN] = {{'0'}};
     Grid();
     Grid(int &row, int &column);
     int getRow() const;
