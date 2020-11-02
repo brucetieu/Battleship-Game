@@ -3,6 +3,7 @@
 #include <fstream>
 #include <vector>
 #include "Ship.h"
+#include <typeinfo>
 
 using namespace std;
 
@@ -23,13 +24,15 @@ void Ship::readInShips() {
             getline(infile, shipData.shipLocation, ',');
             getline(infile, shipData.shipOrientation, '\n');
 
-            addSizeToShips(shipData);
+//            addSizeToShips(shipData);
             shipContainer.push_back(shipData);
         }
     }
     catch (int e) {
         cout << "Exception reading the file" << e << endl;
     }
+
+    addSizeToShips();
 
     for (int i = 0; i < shipContainer.size(); i++) {
 //        cout << shipContainer[i].shipType << endl;
@@ -45,17 +48,19 @@ void Ship::readInShips() {
  * Add sizes to each type of ship.
  * @param shipData
  */
-void Ship::addSizeToShips(ShipData &shipData) {
-    if (shipData.shipType == "Carrier") {
-        shipData.shipSize = "5";
-    } else if (shipData.shipSize == "Battleship") {
-        shipData.shipSize = "4";
-    } else if (shipData.shipSize == "Crusier") {
-        shipData.shipSize = "3";
-    } else if (shipData.shipSize == "Submarine") {
-        shipData.shipSize = "2";
-    } else if (shipData.shipSize == "Destroyer") {
-        shipData.shipSize = "2";
+void Ship::addSizeToShips() {
+    for (int i = 0; i < shipContainer.size(); i++) {
+        if (shipContainer[i].shipType == "Carrier") {
+            shipContainer[i].shipSize = "5";
+        } else if (shipContainer[i].shipType == "Battleship") {
+            shipContainer[i].shipSize = "4";
+        } else if (shipContainer[i].shipType == "Cruiser") {
+            shipContainer[i].shipSize = "3";
+        } else if (shipContainer[i].shipType == "Submarine") {
+            shipContainer[i].shipSize = "2";
+        } else if (shipContainer[i].shipType == "Destroyer") {
+            shipContainer[i].shipSize = "2";
+        }
     }
 }
 
@@ -71,13 +76,16 @@ void Ship::addSizeToShips(ShipData &shipData) {
 //}
 
 void Ship::placeShipOnGrid() {
+
+
     for (int i = 0; i < shipContainer.size(); i++) {
         Grid grid = chooseGridLoc(shipContainer[i].shipLocation);
 
-        if (shipContainer[i].shipOrientation == "H") {
+        if (shipContainer[i].shipOrientation == horizontal) {
             for (int j = grid.getRow(); j < grid.getRow(); j++) {
-                for (int k = grid.getColumn(); j < stoi(shipContainer[i].shipSize); k++) {
+                for (int k = grid.getColumn(); k < stoi(shipContainer[i].shipSize); k++) {
                     grid.GRID[j][k] = shipContainer[i].shipType[0];
+
                 }
             }
         }
@@ -89,8 +97,8 @@ void Ship::placeShipOnGrid() {
             }
         }
     }
-//    grid.createGrid();
-    grid.printGrid();
+
+//    grid.printGrid();
 }
 
 

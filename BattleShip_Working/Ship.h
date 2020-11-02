@@ -6,7 +6,7 @@
 
 class Ship : public Grid
 {
-// private:
+ private:
     struct ShipData
     {
         std::string shipType;
@@ -21,7 +21,7 @@ public:
     Ship();
     void readInShips();
 //    bool checkShipPlacement(vector<ShipData> &container);
-    void addSizeToShips(ShipData &shipData);
+    void addSizeToShips();
     void placeShipOnGrid();
 };
 
