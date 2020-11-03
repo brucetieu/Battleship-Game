@@ -6,7 +6,7 @@
 
 class Ship : public Grid
 {
- private:
+private:
     struct ShipData
     {
         std::string shipType;

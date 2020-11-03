@@ -76,30 +76,29 @@ void Ship::addSizeToShips() {
 //}
 
 void Ship::placeShipOnGrid() {
-
+    Grid grid;
+    Point point;
+    grid.createGrid();
 
     for (int i = 0; i < shipContainer.size(); i++) {
-        Grid grid = chooseGridLoc(shipContainer[i].shipLocation);
+        point = point.parseLocationToPoint(shipContainer[i].shipLocation);
 
-        if (shipContainer[i].shipOrientation == horizontal) {
-            for (int j = grid.getRow(); j < grid.getRow(); j++) {
-                for (int k = grid.getColumn(); k < stoi(shipContainer[i].shipSize); k++) {
+        if (shipContainer[i].shipOrientation.find("H") != std::string::npos) {
+            for (int j = point.xCoord; j <= point.xCoord; j++) {
+                for (int k = point.yCoord; k < stoi(shipContainer[i].shipSize); k++) {
                     grid.GRID[j][k] = shipContainer[i].shipType[0];
 
                 }
             }
         }
-        else if (shipContainer[i].shipOrientation == "V") {
-            for (int j = grid.getRow(); j < stoi(shipContainer[i].shipSize); j++) {
-                for (int k = grid.getColumn(); k < grid.getColumn(); k++) {
+        else if (shipContainer[i].shipOrientation.find("V") != std::string::npos) {
+            for (int j = point.yCoord; j <= stoi(shipContainer[i].shipSize); j++) {
+                for (int k = point.xCoord; k <= point.xCoord; k++) {
                     grid.GRID[j][k] = shipContainer[i].shipType[0];
                 }
             }
         }
     }
 
-//    grid.printGrid();
+    grid.printGrid();
 }
-
-
-

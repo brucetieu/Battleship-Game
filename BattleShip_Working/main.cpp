@@ -5,10 +5,13 @@
 
 using namespace std;
 
+//char Grid::GRID[MAX_ROW][MAX_COLUMN] = {{'0'}};
+//std::vector<char> Grid::MAP = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
 int main()
 {
 //    Grid grid;
 //    grid.createGrid();
+//    grid.printGrid();
 
     Ship ship;
     ship.readInShips();

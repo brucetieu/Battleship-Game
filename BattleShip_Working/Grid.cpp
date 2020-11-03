@@ -3,6 +3,7 @@
 #include <vector>
 #include <iomanip>
 #include "Grid.h"
+#include "Point.h"
 
 using namespace std;
 
@@ -44,22 +45,22 @@ void Grid::printGrid() {
     }
 }
 
-Grid Grid::chooseGridLoc(const std::string &choice) {
-
-    // vector<char> map = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
-    int x, y;
-
-    for (int i = 0; i <= MAP.size(); i++) {
-        if (choice[0] == MAP[i]) {
-            x = i;
-        }
-    }
-
-    y = stoi(choice.substr(1)) - 1;
-
-    return Grid(x, y);
-
-}
+//Point Grid::chooseGridLoc(const std::string &choice) {
+//
+//    // vector<char> map = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+////    int x, y;
+//
+//    for (int i = 0; i <= MAP.size(); i++) {
+//        if (choice[0] == MAP[i]) {
+//            point.xCoord = i;
+//        }
+//    }
+//
+//    point.yCoord = stoi(choice.substr(1)) - 1;
+//
+//    return Point;
+//
+//}
 
 void Grid::updateGrid(Grid &grid) {
     GRID[grid.getRow()][grid.getColumn()] = 'X';
