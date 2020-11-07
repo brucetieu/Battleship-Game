@@ -87,8 +87,7 @@ void Ship::placeShipOnGrid() {
         if (shipContainer[i].shipOrientation.find("H") != std::string::npos) {
 
             for (int j = point.xCoord; j <= point.xCoord; j++) {
-                for (int k =
-                        ].shipSize); k++) {
+                for (int k = point.yCoord; k <= stoi(shipContainer[i].shipSize); k++) {
                     grid.GRID[j][k] = shipContainer[i].shipType[0];
 
                 }
