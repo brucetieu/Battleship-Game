@@ -82,16 +82,20 @@ void Ship::placeShipOnGrid() {
 
     for (int i = 0; i < shipContainer.size(); i++) {
         point = point.parseLocationToPoint(shipContainer[i].shipLocation);
-
+        cout << point.xCoord << ", " << point.yCoord << endl;
+        cout << shipContainer[i].shipType << endl;
         if (shipContainer[i].shipOrientation.find("H") != std::string::npos) {
+
             for (int j = point.xCoord; j <= point.xCoord; j++) {
-                for (int k = point.yCoord; k < stoi(shipContainer[i].shipSize); k++) {
+                for (int k =
+                        ].shipSize); k++) {
                     grid.GRID[j][k] = shipContainer[i].shipType[0];
 
                 }
             }
         }
         else if (shipContainer[i].shipOrientation.find("V") != std::string::npos) {
+
             for (int j = point.yCoord; j <= stoi(shipContainer[i].shipSize); j++) {
                 for (int k = point.xCoord; k <= point.xCoord; k++) {
                     grid.GRID[j][k] = shipContainer[i].shipType[0];
