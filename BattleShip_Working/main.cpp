@@ -7,8 +7,8 @@ using namespace std;
 
 int main()
 {
-    Ship ship;
-    ship.readInShips();
+//    Ship ship;
+//    ship.readInShips();
 
     
     // Grid grid;

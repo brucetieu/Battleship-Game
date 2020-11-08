@@ -25,6 +25,10 @@ int Grid::getColumn() const {
     return this->column;
 }
 
+vector<char> Grid::getMAP() {
+    return MAP;
+}
+
 void Grid::createGrid()
 {
     for (row = 0; row < MAX_ROW; row++)
