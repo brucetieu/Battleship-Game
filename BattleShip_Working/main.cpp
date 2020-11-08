@@ -2,6 +2,8 @@
 #include <string>
 #include "Grid.h"
 #include "Ship.h"
+#include "Helpers.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -9,7 +11,15 @@ int main()
 {
 //    Ship ship;
 //    ship.readInShips();
-
+    Player player;
+    player.readShipsFromFile("ship_placement1_good.csv");
+    player.addSizeToShips();
+//    player.replaceShipLocations();
+    player.checkAllShipsAreIncluded();
+    if (player.checkBoundsOfShipLocation()) {
+        cout << "True" << endl;
+    } else cout << "False" << endl;
+    player.printShipVector();
     
     // Grid grid;
 
