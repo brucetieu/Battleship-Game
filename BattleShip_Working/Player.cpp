@@ -46,15 +46,15 @@ void Player::readShipsFromFile(string filename) {
 void Player::addSizeToShips() {
     for (int i = 0; i < shipVector.size(); i++) {
         if (shipVector[i].shipType.find("Carrier") != string::npos) {
-            shipVector[i].shipSize = "5";
+            shipVector[i].shipSize = 5;
         } else if (shipVector[i].shipType == "Battleship") {
-            shipVector[i].shipSize = "4";
+            shipVector[i].shipSize = 4;
         } else if (shipVector[i].shipType == "Cruiser") {
-            shipVector[i].shipSize = "3";
+            shipVector[i].shipSize = 3;
         } else if (shipVector[i].shipType == "Submarine") {
-            shipVector[i].shipSize = "2";
+            shipVector[i].shipSize = 2;
         } else if (shipVector[i].shipType.find("Destroyer") != string::npos) {
-            shipVector[i].shipSize = "2";
+            shipVector[i].shipSize = 2;
         }
     }
 }
@@ -114,7 +114,7 @@ void Player::getPossibleShipLocations() {
         // Fix rows, update columns.
         if (shipVector[i].shipOrientation.find("H") != std::string::npos) {
             for (int row = indices.row; row <= indices.row; row++) {
-                for (int col = indices.column; col < stoi(shipVector[i].shipSize) + indices.column; col++) {
+                for (int col = indices.column; col < shipVector[i].shipSize + indices.column; col++) {
                     string x = to_string(row);
                     string y = to_string(col);
                     string result = x + y;
@@ -127,7 +127,7 @@ void Player::getPossibleShipLocations() {
         // Fix columns, update rows.
         else if (shipVector[i].shipOrientation.find("V") != std::string::npos) {
             for (int col = indices.column; col <= indices.column; col++) {
-                for (int row = indices.row; row < stoi(shipVector[i].shipSize) + indices.row; row++) {
+                for (int row = indices.row; row < shipVector[i].shipSize + indices.row; row++) {
                     string x = to_string(row);
                     string y = to_string(col);
                     string result = x + y;
@@ -143,21 +143,23 @@ void Player::getPossibleShipLocations() {
  * Print out vector of Ships.
  */
 void Player::printShipVector() {
-    for (int i = 0; i < shipVector.size(); i++) {
-        cout << shipVector[i].shipType << endl;
-        cout << shipVector[i].shipSize << endl;
-        cout << shipVector[i].shipLocation << endl;
-        cout << shipVector[i].shipOrientation << endl;
-    }
+//    for (int i = 0; i < shipVector.size(); i++) {
+//        cout << shipVector[i].shipType << endl;
+//        cout << shipVector[i].shipSize << endl;
+//        cout << shipVector[i].shipLocation << endl;
+//        cout << shipVector[i].shipOrientation << endl;
+//    }
 
 //    for (int i = 0; i < possibleShipLocations.size(); i++) {
 //        for (int j = 0; j < possibleShipLocations[i].possibleShipLocations.size(); j++) {
 //            cout << possibleShipLocations[i].possibleShipLocations[j] << endl;
 //        }
 //    }
-    cout << shipLocations[3].possibleShipLocations[0] << endl;
-    cout << shipLocations[3].possibleShipLocations[1] << endl;
-    cout << shipLocations[3].possibleShipLocations[2] << endl;
+    cout << shipLocations[0].possibleShipLocations[0] << endl;
+    cout << shipLocations[0].possibleShipLocations[1] << endl;
+    cout << shipLocations[0].possibleShipLocations[2] << endl;
+    cout << shipLocations[0].possibleShipLocations[3] << endl;
+    cout << shipLocations[0].possibleShipLocations[4] << endl;
 //    cout << shipLocations[1].possibleShipLocations[3] << endl;
 
 //    cout << shipLocations[2].possibleShipLocations[1]<< endl;
@@ -165,7 +167,7 @@ void Player::printShipVector() {
 //    cout << shipLocations[2].possibleShipLocations[3]<< endl;
 }
 
-
+// TODO: Load ships into grid while checking for incorrect placements. 
 
 
 

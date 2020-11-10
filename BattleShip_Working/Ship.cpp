@@ -10,14 +10,14 @@ Ship::Ship() {
 
 }
 
-Ship::Ship(std::string shipType, std::string shipSize, std::string shipLocation, std::string shipOrientation) {
+Ship::Ship(std::string shipType, int shipSize, std::string shipLocation, std::string shipOrientation) {
     this->shipType = shipType;
     this->shipSize = shipSize;
     this->shipLocation = shipLocation;
     this->shipOrientation = shipOrientation;
 }
 
-Ship::Ship(std::string shipType, std::string shipSize, std::vector <string> possibleShipLocations) {
+Ship::Ship(std::string shipType, int shipSize, std::vector <string> possibleShipLocations) {
     this->shipType = shipType;
     this->shipSize = shipSize;
     this->possibleShipLocations = possibleShipLocations;
