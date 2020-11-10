@@ -7,22 +7,26 @@
 #include "Ship.h"
 #include "Grid.h"
 #include <vector>
+#include "Helpers.h"
 
 
 class Player {
 private:
     Ship ship;
+    Helpers helpers;
     std::vector<Ship> shipVector;
+    std::vector<Ship> shipLocations; // Hold the ship locations: 00, 01, 02, ...
 
 public:
     Player();
     void readShipsFromFile(std::string filename);
     void addSizeToShips();
     void printShipVector();
-    void replaceShipLocations();
+    std::vector<Ship> replaceShipLocations();
     Grid placeShipOnGrid();
     bool checkAllShipsAreIncluded();
     bool checkBoundsOfShipLocation();
+    void getPossibleShipLocations();
 };
 
 

@@ -16,9 +16,10 @@ int main()
     player.addSizeToShips();
 //    player.replaceShipLocations();
     player.checkAllShipsAreIncluded();
-    if (player.checkBoundsOfShipLocation()) {
-        cout << "True" << endl;
-    } else cout << "False" << endl;
+//    if (player.checkBoundsOfShipLocation()) {
+//        cout << "True" << endl;
+//    } else cout << "False" << endl;
+    player.getPossibleShipLocations();
     player.printShipVector();
     
     // Grid grid;

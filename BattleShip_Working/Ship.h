@@ -14,8 +14,10 @@ class Ship
 
 public:
     std::string shipType, shipSize, shipLocation, shipOrientation;
+    std::vector<std::string> possibleShipLocations;
     Ship();
     Ship(std::string shipType, std::string shipSize, std::string shipLocation, std::string shipOrientation);
+    Ship(std::string shipType, std::string shipSize, std::vector<std::string> possibleShipLocations);
 //    void readInShips();
 //    bool checkShipPlacement(vector<ShipData> &container);
 //    void addSizeToShips(ShipData &shipData);

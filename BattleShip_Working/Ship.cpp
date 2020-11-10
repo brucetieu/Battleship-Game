@@ -17,5 +17,10 @@ Ship::Ship(std::string shipType, std::string shipSize, std::string shipLocation,
     this->shipOrientation = shipOrientation;
 }
 
+Ship::Ship(std::string shipType, std::string shipSize, std::vector <string> possibleShipLocations) {
+    this->shipType = shipType;
+    this->shipSize = shipSize;
+    this->possibleShipLocations = possibleShipLocations;
+}
 
 

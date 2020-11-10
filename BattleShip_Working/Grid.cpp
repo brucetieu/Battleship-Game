@@ -59,7 +59,7 @@ Grid Grid::chooseGridLoc(const std::string &choice) {
     // vector<char> map = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
     int x, y;
     
-    for (int i = 0; i <= MAP.size(); i++) {
+    for (int i = 1; i <= MAP.size(); i++) {
         if (choice[0] == MAP[i]) {
             x = i;
         }

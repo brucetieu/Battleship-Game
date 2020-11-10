@@ -9,7 +9,7 @@ private:
     static const int MAX_COLUMN = 10;
     char GRID[MAX_ROW][MAX_COLUMN] = {{'0'}};
     int row, column;
-    const std::vector<char> MAP = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+    const std::vector<char> MAP = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
 
 
 public:
