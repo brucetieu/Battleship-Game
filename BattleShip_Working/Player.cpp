@@ -8,6 +8,7 @@
 #include <fstream>
 #include "GridIndex.h"
 #include <iostream>
+#include <algorithm>
 #include "Helpers.h"
 
 using namespace std;
@@ -52,7 +53,7 @@ void Player::addSizeToShips() {
         } else if (shipVector[i].shipType == "Cruiser") {
             shipVector[i].shipSize = 3;
         } else if (shipVector[i].shipType == "Submarine") {
-            shipVector[i].shipSize = 2;
+            shipVector[i].shipSize = 3;
         } else if (shipVector[i].shipType.find("Destroyer") != string::npos) {
             shipVector[i].shipSize = 2;
         }
@@ -149,22 +150,35 @@ void Player::printShipVector() {
 //        cout << shipVector[i].shipLocation << endl;
 //        cout << shipVector[i].shipOrientation << endl;
 //    }
+    for (int i = 0; i < shipLocations.size(); i++) {
+        for (int j = 0; j < shipLocations[i].possibleShipLocations.size(); j++) {
+            cout << shipLocations[i].possibleShipLocations[j] << endl;
+        }
+    }
+//    cout << shipLocations[0].possibleShipLocations[0] << endl;
+//    cout << shipLocations[0].possibleShipLocations[1] << endl;
+//    cout << shipLocations[0].possibleShipLocations[2] << endl;
+//    cout << shipLocations[0].possibleShipLocations[3] << endl;
+//    cout << shipLocations[0].possibleShipLocations[4] << endl;
+}
 
-//    for (int i = 0; i < possibleShipLocations.size(); i++) {
-//        for (int j = 0; j < possibleShipLocations[i].possibleShipLocations.size(); j++) {
-//            cout << possibleShipLocations[i].possibleShipLocations[j] << endl;
-//        }
-//    }
-    cout << shipLocations[0].possibleShipLocations[0] << endl;
-    cout << shipLocations[0].possibleShipLocations[1] << endl;
-    cout << shipLocations[0].possibleShipLocations[2] << endl;
-    cout << shipLocations[0].possibleShipLocations[3] << endl;
-    cout << shipLocations[0].possibleShipLocations[4] << endl;
-//    cout << shipLocations[1].possibleShipLocations[3] << endl;
-
-//    cout << shipLocations[2].possibleShipLocations[1]<< endl;
-//    cout << shipLocations[2].possibleShipLocations[2]<< endl;
-//    cout << shipLocations[2].possibleShipLocations[3]<< endl;
+/**
+ * Check for ship overlap.
+ * @return True, if there is overlap, false otherwise.
+ */
+bool Player::checkForShipOverlap() {
+    vector<string> uniques;
+    for (int i = 0; i < shipLocations.size(); i++) {
+        for (int j = 0; j < shipLocations[i].possibleShipLocations.size(); j++) {
+            if (find(uniques.begin(), uniques.end(), shipLocations[i].possibleShipLocations[j]) != uniques.end()) {
+                uniques.push_back(shipLocations[i].possibleShipLocations[j]);
+            }
+            else {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 // TODO: Load ships into grid while checking for incorrect placements. 

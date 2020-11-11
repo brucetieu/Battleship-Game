@@ -16,10 +16,13 @@ int main()
     player.addSizeToShips();
 //    player.replaceShipLocations();
     player.checkAllShipsAreIncluded();
-//    if (player.checkBoundsOfShipLocation()) {
-//        cout << "True" << endl;
-//    } else cout << "False" << endl;
+    if (player.checkBoundsOfShipLocation()) {
+        cout << "Out of bounds" << endl;
+    } else cout << "Not out of bounds" << endl;
     player.getPossibleShipLocations();
+    if (player.checkForShipOverlap()) {
+        cout << "No overlap" << endl;
+    } else cout << "Overlap" << endl;
     player.printShipVector();
     
     // Grid grid;

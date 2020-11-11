@@ -14,7 +14,7 @@ class Player {
 private:
     Ship ship;
     Helpers helpers;
-    std::vector<Ship> shipVector;
+    std::vector<Ship> shipVector; // Hold ship info e.g [ {ship: , size: , location: , orientation} ]
     std::vector<Ship> shipLocations; // Hold the ship locations: 00, 01, 02, ...
 
 public:
@@ -27,6 +27,7 @@ public:
     bool checkAllShipsAreIncluded();
     bool checkBoundsOfShipLocation();
     void getPossibleShipLocations();
+    bool checkForShipOverlap();
 };
 
 
