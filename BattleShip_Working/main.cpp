@@ -7,6 +7,7 @@
 
 using namespace std;
 
+//char Grid::GRID[Grid::MAX_COLUMN][Grid::MAX_COLUMN] = {{'0'}};
 int main()
 {
 //    Ship ship;
@@ -15,15 +16,17 @@ int main()
     player.readShipsFromFile("ship_placement1_good.csv");
     player.addSizeToShips();
 //    player.replaceShipLocations();
-    player.checkAllShipsAreIncluded();
-    if (player.checkBoundsOfShipLocation()) {
-        cout << "Out of bounds" << endl;
-    } else cout << "Not out of bounds" << endl;
+//    player.checkAllShipsAreIncluded();
+//    if (player.shipsAreInBounds()) {
+//        cout << "In bounds" << endl;
+//    } else cout << "Out of bounds" << endl;
     player.getPossibleShipLocations();
-    if (player.checkForShipOverlap()) {
-        cout << "No overlap" << endl;
-    } else cout << "Overlap" << endl;
-    player.printShipVector();
+    Grid grid = player.placeShipsOnBoard();
+    grid.printGrid();
+//    if (player.shipsOverlap()) {
+//        cout << "No overlap" << endl;
+//    } else cout << "Overlap" << endl;
+//    player.printShipVector();
     
     // Grid grid;
 
