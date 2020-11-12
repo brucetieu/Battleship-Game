@@ -23,11 +23,12 @@ public:
     void addSizeToShips();
     void printShipVector();
     std::vector<Ship> replaceShipLocations();
-    Grid placeShipOnGrid();
-    bool checkAllShipsAreIncluded();
-    bool checkBoundsOfShipLocation();
+//    Grid placeShipOnGrid();
+    bool allShipsAreIncluded();
+    bool shipsAreInBounds();
     void getPossibleShipLocations();
-    bool checkForShipOverlap();
+    bool shipsDontOverlap();
+    Grid placeShipsOnBoard();
 };
 
 
