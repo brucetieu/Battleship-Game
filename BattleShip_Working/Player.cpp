@@ -192,6 +192,7 @@ Grid Player::placeShipsOnBoard() {
     Grid grid;
     grid.createGrid();
 
+    // If all ships are included, in bounds, and don't overlap then load the ships onto the board.
     if (allShipsAreIncluded() & shipsAreInBounds() & shipsDontOverlap() ) {
         cout << "Ships can be placed on board." << endl;
         Helpers helpers;
@@ -200,7 +201,7 @@ Grid Player::placeShipsOnBoard() {
 
             GridIndex indices = helpers.parseShipLocation(shipVector[i].shipLocation);
 
-            // Fix rows, update columns.
+            // Fix rows, update columns if ship is horizontal.
             if (shipVector[i].shipOrientation.find("H") != std::string::npos) {
                 for (int row = indices.row; row <= indices.row; row++) {
                     for (int col = indices.column; col < shipVector[i].shipSize + indices.column; col++) {
@@ -209,7 +210,7 @@ Grid Player::placeShipsOnBoard() {
                     }
                 }
             }
-                // Fix columns, update rows.
+                // Fix columns, update rows if ship is vertical.
             else if (shipVector[i].shipOrientation.find("V") != std::string::npos) {
                 for (int col = indices.column; col <= indices.column; col++) {
                     for (int row = indices.row; row < shipVector[i].shipSize + indices.row; row++) {
@@ -219,7 +220,7 @@ Grid Player::placeShipsOnBoard() {
             }
         }
     }
-    else cout << "Ships can not be placed on board." << endl;
+    else cout << "Ships can not be placed on board. Try a different configuration." << endl;
     return grid;
 }
 

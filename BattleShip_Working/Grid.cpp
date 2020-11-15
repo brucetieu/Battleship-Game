@@ -7,12 +7,9 @@
 using namespace std;
 
 
-//Grid::Grid() {}
 Grid::Grid()
 {
-    // MAX_WIDTH = 10;
-    // MAX_HEIGHT = 10;
-//    GRID[MAX_WIDTH][MAX_HEIGHT] = {{'0'}};
+
 }
 
 Grid::Grid(int &row, int &column) {
