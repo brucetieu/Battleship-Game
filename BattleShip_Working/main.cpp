@@ -4,17 +4,22 @@
 #include "Ship.h"
 #include "Helpers.h"
 #include "Player.h"
+#include "Computer.h"
 
 using namespace std;
 
 //char Grid::GRID[Grid::MAX_COLUMN][Grid::MAX_COLUMN] = {{'0'}};
 int main()
 {
+//    Computer computer;
+//    computer.generateCorrectPlacements();
+//    computer.printRandShips();
+
 //    Ship ship;
 //    ship.readInShips();
     Player player;
     player.readShipsFromFile("ship_placement1_good.csv");
-    player.addSizeToShips();
+//    player.addSizeToShips();
 //    player.replaceShipLocations();
 //    player.checkAllShipsAreIncluded();
 //    if (player.shipsAreInBounds()) {
@@ -26,7 +31,7 @@ int main()
 //    if (player.shipsOverlap()) {
 //        cout << "No overlap" << endl;
 //    } else cout << "Overlap" << endl;
-//    player.printShipVector();
+    player.printShipVector();
     
     // Grid grid;
 

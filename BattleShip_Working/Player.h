@@ -22,7 +22,7 @@ public:
     void readShipsFromFile(std::string filename);
     void addSizeToShips();
     void printShipVector();
-    std::vector<Ship> replaceShipLocations();
+//    void replaceShipLocations();
 //    Grid placeShipOnGrid();
     bool allShipsAreIncluded();
     bool shipsAreInBounds();

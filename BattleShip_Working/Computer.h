@@ -11,9 +11,12 @@ class Computer {
 
 private:
     std::vector<Ship> computerShips;
+
     std::string shipTypes[5];
+    std::string letters[10];
     int shipSizes[5];
     std::string shipOrientations[2];
+    std::vector<Ship> shipLocations; // Hold the ship locations: 00, 01, 02, ...
 
 public:
 
@@ -22,6 +25,12 @@ public:
     void printRandShips();
     std::string randShipLocation();
     std::string randShipOrientation();
+
+    bool shipsAreInBounds();
+    void getPossibleShipLocations();
+    bool shipsDontOverlap();
+    void generateCorrectPlacements();
+    bool shipOverlapAfterPlacement();
 
 };
 

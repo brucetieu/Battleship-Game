@@ -38,6 +38,7 @@ void Player::readShipsFromFile(string filename) {
     } catch (const ifstream::failure& e) {
         cout << "Error reading file" << endl;
     }
+    addSizeToShips();
 }
 
 /**
@@ -64,18 +65,18 @@ void Player::addSizeToShips() {
 /**
  * Replace ship location; ie, change A1 -> 11, B2 -> 22, etc.
  */
-vector<Ship> Player::replaceShipLocations() {
-    Helpers helpers;
-
-    for (int i = 0; i < shipVector.size(); i++) {
-        GridIndex gridIndex = helpers.parseShipLocation(shipVector[i].shipLocation);
-        string row = to_string(gridIndex.row);
-        string column = to_string(gridIndex.column);
-        shipVector[i].shipLocation = row + column;
-    }
-
-    return shipVector;
-}
+//void Player::replaceShipLocations() {
+//    Helpers helpers;
+//
+//    for (int i = 0; i < shipVector.size(); i++) {
+//        GridIndex gridIndex = helpers.parseShipLocation(shipVector[i].shipLocation);
+//        string row = to_string(gridIndex.row);
+//        string column = to_string(gridIndex.column);
+//        shipVector[i].shipLocation = row + column;
+//    }
+//
+////    return shipVector;
+//}
 
 /**
  * Check that all ships are included.
@@ -95,16 +96,22 @@ bool Player::allShipsAreIncluded() {
  * @return True, if no violation, else false.
  */
 bool Player::shipsAreInBounds() {
-    for (int i = 0; i < shipVector.size(); i++) {
-        char row = shipVector[i].shipLocation[0];
-        string column = shipVector[i].shipLocation.substr(1);
-
-        if (row > 'J' || stoi(column) > 10 || row < 'A' || stoi(column) < 0) {
-            cout << "Ships are out of bounds" << endl;
-            return false;
+    for (int i = 0; i < shipLocations.size(); i++) {
+        for (int j = 0; j < shipLocations[i].possibleShipLocations.size(); j++) {
+            if (shipLocations[i].possibleShipLocations[j].length() > 2) return false;
         }
     }
     return true;
+//    for (int i = 0; i < shipVector.size(); i++) {
+//        char row = shipVector[i].shipLocation[0];
+//        string column = shipVector[i].shipLocation.substr(1);
+//
+//        if (row > 'J' || stoi(column) > 10 || row < 'A' || stoi(column) < 0) {
+//            cout << "Ships are out of bounds" << endl;
+//            return false;
+//        }
+//    }
+//    return true;
 }
 
 void Player::getPossibleShipLocations() {
