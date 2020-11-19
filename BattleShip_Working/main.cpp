@@ -1,10 +1,11 @@
 #include <iostream>
 #include <string>
 #include "Grid.h"
+#include "Game.h"
 #include "Ship.h"
 #include "Helpers.h"
 #include "Player.h"
-#include "Computer.h"
+//#include "Computer.h"
 
 using namespace std;
 
@@ -18,20 +19,29 @@ int main()
 //    Ship ship;
 //    ship.readInShips();
     Player player;
-    player.readShipsFromFile("ship_placement1_good.csv");
+    Game game;
+
+    vector<Ship> vecOfShips;
+    vector<Ship> newVecOfShips;
+
+    vecOfShips = player.readShipsFromFile("ship_placement1_good.csv");
+    newVecOfShips = game.getPossibleShipLocations(vecOfShips);
+
+    Grid grid = player.placeShipsOnBoard(vecOfShips, newVecOfShips);
+    grid.printGrid();
 //    player.addSizeToShips();
 //    player.replaceShipLocations();
 //    player.checkAllShipsAreIncluded();
 //    if (player.shipsAreInBounds()) {
 //        cout << "In bounds" << endl;
 //    } else cout << "Out of bounds" << endl;
-    player.getPossibleShipLocations();
-    Grid grid = player.placeShipsOnBoard();
-    grid.printGrid();
+//    player.getPossibleShipLocations();
+//    Grid grid = player.placeShipsOnBoard();
+//    grid.printGrid();
 //    if (player.shipsOverlap()) {
 //        cout << "No overlap" << endl;
 //    } else cout << "Overlap" << endl;
-    player.printShipVector();
+//    player.printShipVector();
     
     // Grid grid;
 

@@ -3,7 +3,7 @@
 //
 
 #include "Game.h"
-#include "Ship"
+#include "Ship.h"
 #include "Helpers.h"
 #include <vector>
 #include <string>
@@ -19,8 +19,21 @@ using namespace std;
 bool Game::shipsAreInBounds(vector <Ship> &vecOfShips) {
     for (int i = 0; i < vecOfShips.size(); i++) {
         for (int j = 0; j < vecOfShips[i].possibleShipLocations.size(); j++) {
-            if (shipLocations[i].vecOfShips[j].length() > 2) return false;
+            if (vecOfShips[i].possibleShipLocations[j].length() > 2) return false;
         }
+    }
+    return true;
+}
+
+/**
+ * Check if all ships are included.
+ * @param vecOfShips The vector of ship location (what was read in from the file).
+ * @return True, if all ships are included, false otherwise.
+ */
+bool Game::allShipsAreIncluded(std::vector <Ship> &vecOfShips) {
+    if (vecOfShips.size() < 5) {
+        cout << "Not all ships are included." << endl;
+        return false;
     }
     return true;
 }
@@ -72,8 +85,9 @@ vector<Ship> Game::getPossibleShipLocations(std::vector <Ship> &vecOfShips) {
  * @param newVecOfShips The new vector of ships with all possible coordinates of each ship. The coords are in row/col.
  * @return
  */
-bool Game::shipsDontOverlap(vector<Ship> newVecOfShips) {
+bool Game::shipsDontOverlap(vector<Ship> &newVecOfShips) {
     vector<string> uniques;
+
     for (int i = 0; i < newVecOfShips.size(); i++) {
         for (int j = 0; j < newVecOfShips[i].possibleShipLocations.size(); j++) {
             if (find(uniques.begin(), uniques.end(), newVecOfShips[i].possibleShipLocations[j]) == uniques.end()) {
@@ -86,6 +100,19 @@ bool Game::shipsDontOverlap(vector<Ship> newVecOfShips) {
         }
     }
     return true;
+}
+
+/**
+ * Print out the vector of ships.
+ * @param vecOfShips The vector of ships load from file.
+ */
+void Game::printShipVector(std::vector <Ship> &vecOfShips) {
+    for (int i = 0; i < vecOfShips.size(); i++) {
+        cout << vecOfShips[i].shipType << endl;
+        cout << vecOfShips[i].shipSize << endl;
+        cout << vecOfShips[i].shipLocation << endl;
+        cout << vecOfShips[i].shipOrientation << endl;
+    }
 }
 
 

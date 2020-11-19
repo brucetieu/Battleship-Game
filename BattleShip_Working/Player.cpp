@@ -15,6 +15,7 @@ using namespace std;
 
 Player::Player() {
     ship = Ship();
+    game = new Game();
 //    helpers = Helpers();
 }
 
@@ -22,7 +23,7 @@ Player::Player() {
  * Read in Ship type, location, and orientation into a vector of Ship objects.
  * @param filename The name of the file.
  */
-void Player::readShipsFromFile(string filename) {
+vector<Ship> Player::readShipsFromFile(string filename) {
     ifstream infile;
 
     try {
@@ -39,6 +40,7 @@ void Player::readShipsFromFile(string filename) {
         cout << "Error reading file" << endl;
     }
     addSizeToShips();
+    return shipVector;
 }
 
 /**
@@ -82,26 +84,26 @@ void Player::addSizeToShips() {
  * Check that all ships are included.
  * @return True, if all ships are included, otherwise false.
  */
-bool Player::allShipsAreIncluded() {
-//    cout << shipVector.size() << endl;
-    if (shipVector.size() < 5) {
-        cout << "Not all ships are included" << endl;
-        return false;
-    }
-    return true;
-}
+//bool Player::allShipsAreIncluded() {
+////    cout << shipVector.size() << endl;
+//    if (shipVector.size() < 5) {
+//        cout << "Not all ships are included" << endl;
+//        return false;
+//    }
+//    return true;
+//}
 
 /**
  * Check that the location of ships do not violate bounds of the grid.
  * @return True, if no violation, else false.
  */
-bool Player::shipsAreInBounds() {
-    for (int i = 0; i < shipLocations.size(); i++) {
-        for (int j = 0; j < shipLocations[i].possibleShipLocations.size(); j++) {
-            if (shipLocations[i].possibleShipLocations[j].length() > 2) return false;
-        }
-    }
-    return true;
+//bool Player::shipsAreInBounds() {
+//    for (int i = 0; i < shipLocations.size(); i++) {
+//        for (int j = 0; j < shipLocations[i].possibleShipLocations.size(); j++) {
+//            if (shipLocations[i].possibleShipLocations[j].length() > 2) return false;
+//        }
+//    }
+//    return true;
 //    for (int i = 0; i < shipVector.size(); i++) {
 //        char row = shipVector[i].shipLocation[0];
 //        string column = shipVector[i].shipLocation.substr(1);
@@ -112,95 +114,95 @@ bool Player::shipsAreInBounds() {
 //        }
 //    }
 //    return true;
-}
+//}
 
-void Player::getPossibleShipLocations() {
-    Helpers helpers;
-
-    for (int i = 0; i < shipVector.size(); i++) {
-        vector<string> tempVector;
-        GridIndex indices = helpers.parseShipLocation(shipVector[i].shipLocation);
-
-        // Fix rows, update columns.
-        if (shipVector[i].shipOrientation.find("H") != std::string::npos) {
-            for (int row = indices.row; row <= indices.row; row++) {
-                for (int col = indices.column; col < shipVector[i].shipSize + indices.column; col++) {
-                    string x = to_string(row);
-                    string y = to_string(col);
-                    string result = x + y;
-                    tempVector.push_back(result);
-                }
-                shipLocations.push_back(Ship(shipVector[i].shipType, shipVector[i].shipSize, tempVector));
-            }
-        }
-
-        // Fix columns, update rows.
-        else if (shipVector[i].shipOrientation.find("V") != std::string::npos) {
-            for (int col = indices.column; col <= indices.column; col++) {
-                for (int row = indices.row; row < shipVector[i].shipSize + indices.row; row++) {
-                    string x = to_string(row);
-                    string y = to_string(col);
-                    string result = x + y;
-                    tempVector.push_back(result);
-                }
-                shipLocations.push_back(Ship(shipVector[i].shipType, shipVector[i].shipSize, tempVector));
-            }
-        }
-    }
-}
+//void Player::getPossibleShipLocations() {
+//    Helpers helpers;
+//
+//    for (int i = 0; i < shipVector.size(); i++) {
+//        vector<string> tempVector;
+//        GridIndex indices = helpers.parseShipLocation(shipVector[i].shipLocation);
+//
+//        // Fix rows, update columns.
+//        if (shipVector[i].shipOrientation.find("H") != std::string::npos) {
+//            for (int row = indices.row; row <= indices.row; row++) {
+//                for (int col = indices.column; col < shipVector[i].shipSize + indices.column; col++) {
+//                    string x = to_string(row);
+//                    string y = to_string(col);
+//                    string result = x + y;
+//                    tempVector.push_back(result);
+//                }
+//                shipLocations.push_back(Ship(shipVector[i].shipType, shipVector[i].shipSize, tempVector));
+//            }
+//        }
+//
+//        // Fix columns, update rows.
+//        else if (shipVector[i].shipOrientation.find("V") != std::string::npos) {
+//            for (int col = indices.column; col <= indices.column; col++) {
+//                for (int row = indices.row; row < shipVector[i].shipSize + indices.row; row++) {
+//                    string x = to_string(row);
+//                    string y = to_string(col);
+//                    string result = x + y;
+//                    tempVector.push_back(result);
+//                }
+//                shipLocations.push_back(Ship(shipVector[i].shipType, shipVector[i].shipSize, tempVector));
+//            }
+//        }
+//    }
+//}
 
 /**
  * Print out vector of Ships.
  */
-void Player::printShipVector() {
+//void Player::printShipVector() {
 //    for (int i = 0; i < shipVector.size(); i++) {
 //        cout << shipVector[i].shipType << endl;
 //        cout << shipVector[i].shipSize << endl;
 //        cout << shipVector[i].shipLocation << endl;
 //        cout << shipVector[i].shipOrientation << endl;
 //    }
-    for (int i = 0; i < shipLocations.size(); i++) {
-        for (int j = 0; j < shipLocations[i].possibleShipLocations.size(); j++) {
-            cout << shipLocations[i].possibleShipLocations[j] << endl;
-        }
-    }
+//    for (int i = 0; i < shipLocations.size(); i++) {
+//        for (int j = 0; j < shipLocations[i].possibleShipLocations.size(); j++) {
+//            cout << shipLocations[i].possibleShipLocations[j] << endl;
+//        }
+//    }
 //    cout << shipLocations[0].possibleShipLocations[0] << endl;
 //    cout << shipLocations[0].possibleShipLocations[1] << endl;
 //    cout << shipLocations[0].possibleShipLocations[2] << endl;
 //    cout << shipLocations[0].possibleShipLocations[3] << endl;
 //    cout << shipLocations[0].possibleShipLocations[4] << endl;
-}
+//}
 
 /**
  * Check for ship overlap.
  * @return True, if there is no overlap, false otherwise.
  */
-bool Player::shipsDontOverlap() {
-    vector<string> uniques;
-    for (int i = 0; i < shipLocations.size(); i++) {
-        for (int j = 0; j < shipLocations[i].possibleShipLocations.size(); j++) {
-            if (find(uniques.begin(), uniques.end(), shipLocations[i].possibleShipLocations[j]) == uniques.end()) {
-                uniques.push_back(shipLocations[i].possibleShipLocations[j]);
-            }
-            else {
-                cout << "Ships overlap" << endl;
-                return false;
-            }
-        }
-    }
+//bool Player::shipsDontOverlap() {
+//    vector<string> uniques;
+//    for (int i = 0; i < shipLocations.size(); i++) {
+//        for (int j = 0; j < shipLocations[i].possibleShipLocations.size(); j++) {
+//            if (find(uniques.begin(), uniques.end(), shipLocations[i].possibleShipLocations[j]) == uniques.end()) {
+//                uniques.push_back(shipLocations[i].possibleShipLocations[j]);
+//            }
+//            else {
+//                cout << "Ships overlap" << endl;
+//                return false;
+//            }
+//        }
+//    }
 //    for (int i = 0; i < uniques.size(); i++) {
 //        cout << uniques[i] << endl;
 //    }
-    return true;
-}
+//    return true;
+//}
 
 // TODO: Load ships into grid while checking for incorrect placements. 
-Grid Player::placeShipsOnBoard() {
+Grid Player::placeShipsOnBoard(vector<Ship> &vecOfShips, vector<Ship> &newVecOfShips) {
     Grid grid;
     grid.createGrid();
 
     // If all ships are included, in bounds, and don't overlap then load the ships onto the board.
-    if (allShipsAreIncluded() & shipsAreInBounds() & shipsDontOverlap() ) {
+    if (game->allShipsAreIncluded(vecOfShips) & game->shipsAreInBounds(vecOfShips) & game->shipsDontOverlap(newVecOfShips) ) {
         cout << "Ships can be placed on board." << endl;
         Helpers helpers;
 
