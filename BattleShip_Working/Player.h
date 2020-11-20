@@ -13,23 +13,16 @@
 
 class Player {
 private:
-    Ship ship;
-    Helpers helpers;
+    Ship *ship;
     Game *game;
     std::vector<Ship> shipVector; // Hold ship info e.g [ {ship: , size: , location: , orientation} ]
-    std::vector<Ship> shipLocations; // Hold the ship locations: 00, 01, 02, ...
+//    std::vector<Ship> shipLocations; // Hold the ship locations: 00, 01, 02, ...
+
+    void _addSizeToShips();
 
 public:
     Player();
     std::vector<Ship> readShipsFromFile(std::string filename);
-    void addSizeToShips();
-//    void printShipVector();
-//    void replaceShipLocations();
-//    Grid placeShipOnGrid();
-//    bool allShipsAreIncluded();
-//    bool shipsAreInBounds();
-//    void getPossibleShipLocations();
-//    bool shipsDontOverlap();
     Grid placeShipsOnBoard(std::vector<Ship> &vecOfShips, std::vector<Ship> &newVecOfShips);
 };
 
