@@ -6,8 +6,9 @@
 #define BATTLESHIP_WORKING_COMPUTER_H
 
 #include "Ship.h"
+#include "Game.h"
 
-class Computer {
+class Computer : public Game {
 
 private:
     std::vector<Ship> computerShips;
@@ -26,11 +27,9 @@ public:
     std::string randShipLocation();
     std::string randShipOrientation();
 
-    bool shipsAreInBounds();
-    void getPossibleShipLocations();
-    bool shipsDontOverlap();
+
     void generateCorrectPlacements();
-    bool shipOverlapAfterPlacement();
+
 
 };
 

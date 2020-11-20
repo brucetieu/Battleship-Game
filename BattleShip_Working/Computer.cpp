@@ -4,8 +4,10 @@
 
 #include "Computer.h"
 #include "GridIndex.h"
+#include "Game.h"
 #include "Helpers.h"
 #include <string>
+#include <vector>
 #include <iostream>
 #include "Ship.h"
 
@@ -63,91 +65,15 @@ void Computer::printRandShips() {
     }
 }
 
-bool Computer::shipsAreInBounds() {
-    for (int i = 0; i < computerShips.size(); i++) {
-        char row = computerShips[i].shipLocation[0];
-        string column = computerShips[i].shipLocation.substr(1);
-
-        if (row > 'J' || stoi(column) > 10 || row < 'A' || stoi(column) < 0) {
-            cout << "Ships are out of bounds" << endl;
-            return false;
-        }
-    }
-    return true;
-}
-
-void Computer::getPossibleShipLocations() {
-    Helpers helpers;
-
-    for (int i = 0; i < computerShips.size(); i++) {
-        vector<string> tempVector;
-        GridIndex indices = helpers.parseShipLocation(computerShips[i].shipLocation);
-
-        // Fix rows, update columns.
-        if (computerShips[i].shipOrientation.find("H") != std::string::npos) {
-            for (int row = indices.row; row <= indices.row; row++) {
-                for (int col = indices.column; col < computerShips[i].shipSize + indices.column; col++) {
-                    string x = to_string(row);
-                    string y = to_string(col);
-                    string result = x + y;
-                    tempVector.push_back(result);
-                }
-                shipLocations.push_back(Ship(computerShips[i].shipType, computerShips[i].shipSize, tempVector));
-            }
-        }
-
-            // Fix columns, update rows.
-        else if (computerShips[i].shipOrientation.find("V") != std::string::npos) {
-            for (int col = indices.column; col <= indices.column; col++) {
-                for (int row = indices.row; row < computerShips[i].shipSize + indices.row; row++) {
-                    string x = to_string(row);
-                    string y = to_string(col);
-                    string result = x + y;
-                    tempVector.push_back(result);
-                }
-                shipLocations.push_back(Ship(computerShips[i].shipType, computerShips[i].shipSize, tempVector));
-            }
-        }
-    }
-}
-
-bool Computer::shipsDontOverlap() {
-    vector<string> uniques;
-    for (int i = 0; i < shipLocations.size(); i++) {
-        for (int j = 0; j < shipLocations[i].possibleShipLocations.size(); j++) {
-            if (find(uniques.begin(), uniques.end(), shipLocations[i].possibleShipLocations[j]) == uniques.end()) {
-                uniques.push_back(shipLocations[i].possibleShipLocations[j]);
-            }
-            else {
-                cout << "Ships overlap" << endl;
-                return false;
-            }
-        }
-    }
-//    for (int i = 0; i < uniques.size(); i++) {
-//        cout << uniques[i] << endl;
-//    }
-    return true;
-}
-
+/**
+ * Continue generating random placements until there's no overlap and all ships are in bounds.
+ */
 void Computer::generateCorrectPlacements() {
-
+    vector<Ship> newVecOfShips;
     do {
         cout << "Generating" << endl;
-        getPossibleShipLocations();
+        newVecOfShips = getPossibleShipLocations(computerShips);
         randShipPlacement();
-    } while (!shipsDontOverlap());
+    } while (shipsDontOverlap(newVecOfShips) && shipsAreInBounds(newVecOfShips));
 
-//    while (!shipsAreInBounds() & !shipsDontOverlap() ) {
-//        cout << "Generating..." << endl;
-//        randShipPlacement();
-//    }
 }
-
-//bool Computer::shipOverlapAfterPlacement() {
-//    for (int i = 0; i < shipLocations.size(); i++) {
-//        for (int j = 0; j < shipLocations[i].size(); j++) {
-//            if (stoi(shipLocations[i].shipLocation[j]) > 10 || stoi)
-//        }
-//    }
-//}
