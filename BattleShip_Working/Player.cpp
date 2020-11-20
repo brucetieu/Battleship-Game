@@ -21,6 +21,14 @@ Player::Player() {
     game = new Game();
 }
 
+Ship Player::getShip() {
+    return *ship;
+}
+
+Game Player::getGame() {
+    return *game;
+}
+
 /**
  * Read in Ship type, location, and orientation into a vector of Ship objects.
  * @param filename The name of the file.

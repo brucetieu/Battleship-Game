@@ -22,6 +22,11 @@ private:
 
 public:
     Player();
+    void fire();
+
+    Ship getShip();
+    Game getGame();
+
     std::vector<Ship> readShipsFromFile(std::string filename);
     Grid placeShipsOnBoard(std::vector<Ship> &vecOfShips, std::vector<Ship> &newVecOfShips);
 };
