@@ -25,7 +25,7 @@ GridIndex Helpers::parseShipLocation(string &location) {
             gridIndex.row = i;
         }
     }
-    // Convert second character to be an integer.
+    // Convert second character to be an integer. Subtract 1 because Grid goes from 1 - 10, and we want 0 - 9.
     gridIndex.column = stoi(location.substr(1)) - 1;
 
     // Return the struct.
