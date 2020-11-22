@@ -4,32 +4,25 @@
 
 #ifndef BATTLESHIP_WORKING_PLAYER_H
 #define BATTLESHIP_WORKING_PLAYER_H
+
+
 #include "Ship.h"
-#include "Grid.h"
-#include <vector>
-#include "Helpers.h"
-#include "Game.h"
 
-
+/**
+ * Class which checks if the game is ready to go. So checks placements, etc.
+ */
 class Player {
 private:
-    Ship *ship;
-    Game *game;
-    std::vector<Ship> shipVector; // Hold ship info e.g [ {ship: , size: , location: , orientation} ]
-//    std::vector<Ship> shipLocations; // Hold the ship locations: 00, 01, 02, ...
-
-    void _addSizeToShips();
 
 public:
-    Player();
-    void fire();
+    bool shipsAreInBounds(std::vector<Ship> &vecOfShips);
+    std::vector<Ship> getPossibleShipLocations(std::vector<Ship> &vecOfShips);
+    bool shipsDontOverlap(std::vector<Ship> &newVecOfShips);
+    bool allShipsAreIncluded(std::vector<Ship> &vecOfShips);
+    void printShipVector(std::vector<Ship> &vecOfShips);
 
-    Ship getShip();
-    Game getGame();
-
-    std::vector<Ship> readShipsFromFile(std::string filename);
-    Grid placeShipsOnBoard(std::vector<Ship> &vecOfShips, std::vector<Ship> &newVecOfShips);
 };
+
 
 
 #endif //BATTLESHIP_WORKING_PLAYER_H
