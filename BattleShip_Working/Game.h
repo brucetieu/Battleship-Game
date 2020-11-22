@@ -10,14 +10,7 @@
  * Class which checks if the game is ready to go. So checks placements, etc.
  */
 class Game {
-private:
 
-public:
-    bool shipsAreInBounds(std::vector<Ship> &vecOfShips);
-    std::vector<Ship> getPossibleShipLocations(std::vector<Ship> &vecOfShips);
-    bool shipsDontOverlap(std::vector<Ship> &newVecOfShips);
-    bool allShipsAreIncluded(std::vector<Ship> &vecOfShips);
-    void printShipVector(std::vector<Ship> &vecOfShips);
 
 };
 
