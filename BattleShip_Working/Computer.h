@@ -6,9 +6,9 @@
 #define BATTLESHIP_WORKING_COMPUTER_H
 
 #include "Ship.h"
-#include "Game.h"
+#include "Player.h"
 
-class Computer : public Game {
+class Computer : public Player {
 
 private:
     std::vector<Ship> computerShips;
@@ -29,6 +29,7 @@ public:
 
 
     void generateCorrectPlacements();
+    Grid placeShipsOnBoard();
 
 
 };

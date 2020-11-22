@@ -4,7 +4,7 @@
 
 #include "Computer.h"
 #include "GridIndex.h"
-#include "Game.h"
+#include "Player.h"
 #include "Helpers.h"
 #include <string>
 #include <vector>
@@ -23,10 +23,14 @@ Computer::Computer() : shipTypes{"Carrier", "Battleship", "Cruiser", "Submarine"
  * @return A random string like "00" representing row 0, column 0".
  */
 string Computer::randShipLocation() {
-//    GridIndex randIndices;
-//    randIndices.row = rand() % 11;
-    int column = rand() % 11;
-    string rowStr = letters[rand() % 11];
+
+    // Generate random number from 1 - 10.
+    int column = rand() % 10 + 1;
+
+    // Select a random index from the letters array (0-9).
+    string rowStr = letters[rand() % 10];
+
+    // Convert to a string and return it.
     string colStr = to_string(column);
     return rowStr + colStr;
 }
@@ -70,10 +74,46 @@ void Computer::printRandShips() {
  */
 void Computer::generateCorrectPlacements() {
     vector<Ship> newVecOfShips;
-    do {
-        cout << "Generating" << endl;
-        newVecOfShips = getPossibleShipLocations(computerShips);
-        randShipPlacement();
-    } while (shipsDontOverlap(newVecOfShips) && shipsAreInBounds(newVecOfShips));
+    randShipPlacement();
+    newVecOfShips = getPossibleShipLocations(computerShips);
 
+    for(;;) {
+        if (shipsDontOverlap(newVecOfShips) && shipsAreInBounds(newVecOfShips)) {
+            break;
+        } else {
+            cout << "Generating..." << endl;
+            randShipPlacement();
+            newVecOfShips = getPossibleShipLocations(computerShips);
+        }
+    }
+}
+
+Grid Computer::placeShipsOnBoard() {
+    Grid grid;
+    grid.createGrid();
+
+    Helpers helpers;
+
+    for (int i = 0; i < computerShips.size(); i++) {
+
+        GridIndex indices = helpers.parseShipLocation(computerShips[i].shipLocation);
+
+        // Fix rows, update columns if ship is horizontal.
+        if (computerShips[i].shipOrientation.find("H") != std::string::npos) {
+            for (int row = indices.row; row <= indices.row; row++) {
+                for (int col = indices.column; col < computerShips[i].shipSize + indices.column; col++) {
+                    grid.GRID[row][col] = computerShips[i].shipType[0];
+                }
+            }
+        }
+            // Fix columns, update rows if ship is vertical.
+        else if (computerShips[i].shipOrientation.find("V") != std::string::npos) {
+            for (int col = indices.column; col <= indices.column; col++) {
+                for (int row = indices.row; row < computerShips[i].shipSize + indices.row; row++) {
+                    grid.GRID[row][col] = computerShips[i].shipType[0];
+                }
+            }
+        }
+    }
+    return grid;
 }
