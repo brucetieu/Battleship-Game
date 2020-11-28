@@ -3,6 +3,7 @@
 //
 
 #include "Human.h"
+#include "Game.h"
 #include "Ship.h"
 #include <string>
 #include <fstream>
@@ -83,11 +84,10 @@ Grid Human::placeShipsOnBoard(vector<Ship> &vecOfShips, vector<Ship> &newVecOfSh
     // If all ships are included, in bounds, and don't overlap then load the ships onto the board.
     if (allShipsAreIncluded(vecOfShips) & shipsAreInBounds(newVecOfShips) & shipsDontOverlap(newVecOfShips) ) {
         cout << "Ships can be placed on board." << endl;
-        Helpers helpers;
 
         for (int i = 0; i < shipVector.size(); i++) {
 
-            GridIndex indices = helpers.parseShipLocation(shipVector[i].shipLocation);
+            GridIndex indices = helpers.parseLocationToIndex(shipVector[i].shipLocation);
 
             // Fix rows, update columns if ship is horizontal.
             if (shipVector[i].shipOrientation.find("H") != std::string::npos) {
@@ -110,4 +110,36 @@ Grid Human::placeShipsOnBoard(vector<Ship> &vecOfShips, vector<Ship> &newVecOfSh
     }
     else cout << "Ships can not be placed on board. Try a different configuration." << endl;
     return grid;
+}
+
+void Human::fire(Game &newGame) {
+    Game game;
+    string choice;
+
+    while (true) {
+        cout << "Choose where to fire (A - J) and a number (1-10): ";
+        getline(cin, choice);
+
+        // Convert input to all uppercase.
+        string upperCaseChoice = helpers.toUpper(choice);
+
+        // Fire only if user input is validated.
+        if (!helpers.isEmpty(upperCaseChoice) && !helpers.isSpace(upperCaseChoice) && helpers.isRightLength(upperCaseChoice) &&
+            helpers.isAlphabet(upperCaseChoice) && helpers.isInBound(upperCaseChoice)) {
+
+            // TODO: User input is validated => pass this choice into some function and see if it hits any ship.
+            cout << "Firing..." << endl;
+            game.playGame(upperCaseChoice, newGame);
+            cout << "Computer fires..." << endl;
+            game.playGame2(newGame);
+        } else {
+            cout << "Invalid target" << endl;
+            break;
+        }
+    }
+
+
+    string ParsedString = helpers.parseLocationToString(choice);
+
+
 }

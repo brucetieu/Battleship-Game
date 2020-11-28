@@ -4,30 +4,51 @@
 #include "Game.h"
 #include "Ship.h"
 #include "Helpers.h"
-#include "Player.h"
 #include "Computer.h"
+#include "Human.h"
 
 using namespace std;
 
 //char Grid::GRID[Grid::MAX_COLUMN][Grid::MAX_COLUMN] = {{'0'}};
 int main()
 {
-
-    Computer computer;
-    computer.generateCorrectPlacements();
-    computer.printRandShips();
-
-    Player player;
     Game game;
+    Game newGame = game.buildGame();
+    Human human;
 
-    vector<Ship> vecOfShips;
-    vector<Ship> newVecOfShips;
+    human.fire(newGame);
+//    Game game;
+//    game.playGame();
 
-    vecOfShips = player.readShipsFromFile("ship_placement1_good.csv");
-    newVecOfShips = game.getPossibleShipLocations(vecOfShips);
+    // Computer
+//    Computer computer;
+//    vector<Ship> computerPossibleShipLocs = computer.generateCorrectPlacements();
+//    Grid computerBoard = computer.placeShipsOnBoard();
 
-    Grid grid = player.placeShipsOnBoard(vecOfShips, newVecOfShips);
-    grid.printGrid();
+//    grid1.printGrid();
+//    computer.printRandShips();
+
+    // Human.
+//    Human human;
+//
+//    vector<Ship> vecOfShips;
+//    vector<Ship> newVecOfShips;
+//
+//    vecOfShips = human.readShipsFromFile("ship_placement1_good.csv");
+//    newVecOfShips = human.getPossibleShipLocations(vecOfShips);
+//
+//    Grid humanBoard = human.placeShipsOnBoard(vecOfShips, newVecOfShips);
+//    cout << "Here is your ship configuration: " << endl;
+//    humanBoard.printGrid();
+//
+//    cout << endl;
+
+//    cout << "Here is your tracking grid of shots you have fired: " << endl;
+//    Grid trackerBoard;
+//    trackerBoard.createGrid();
+//    trackerBoard.printGrid();
+//
+//    human.fire();
 
 
     return 0;

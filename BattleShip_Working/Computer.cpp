@@ -18,6 +18,11 @@ Computer::Computer() : shipTypes{"Carrier", "Battleship", "Cruiser", "Submarine"
                        shipOrientations{"H", "V"},
                        letters {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"} {}
 
+
+
+vector<Ship> Computer::getComputerShips() {
+    return computerShips;
+}
 /**
  * Randomize ship locations for computer;
  * @return A random string like "00" representing row 0, column 0".
@@ -72,7 +77,7 @@ void Computer::printRandShips() {
 /**
  * Continue generating random placements until there's no overlap and all ships are in bounds.
  */
-void Computer::generateCorrectPlacements() {
+vector<Ship> Computer::generateCorrectPlacements() {
     vector<Ship> newVecOfShips;
     randShipPlacement();
     newVecOfShips = getPossibleShipLocations(computerShips);
@@ -86,6 +91,7 @@ void Computer::generateCorrectPlacements() {
             newVecOfShips = getPossibleShipLocations(computerShips);
         }
     }
+    return newVecOfShips;
 }
 
 Grid Computer::placeShipsOnBoard() {
@@ -96,7 +102,7 @@ Grid Computer::placeShipsOnBoard() {
 
     for (int i = 0; i < computerShips.size(); i++) {
 
-        GridIndex indices = helpers.parseShipLocation(computerShips[i].shipLocation);
+        GridIndex indices = helpers.parseLocationToIndex(computerShips[i].shipLocation);
 
         // Fix rows, update columns if ship is horizontal.
         if (computerShips[i].shipOrientation.find("H") != std::string::npos) {

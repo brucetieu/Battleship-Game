@@ -21,6 +21,8 @@ public:
     bool allShipsAreIncluded(std::vector<Ship> &vecOfShips);
     void printShipVector(std::vector<Ship> &vecOfShips);
 
+    void fire();
+
 };
 
 

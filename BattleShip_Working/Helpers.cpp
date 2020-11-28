@@ -6,6 +6,7 @@
 #include "GridIndex.h"
 #include <string>
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -14,7 +15,7 @@ using namespace std;
  * @param location The location in the file.
  * @return A GridIndex struct.
  */
-GridIndex Helpers::parseShipLocation(string &location) {
+GridIndex Helpers::parseLocationToIndex(string &location) {
 
     GridIndex gridIndex;
     vector<char> map = grid.getMAP();
@@ -33,16 +34,102 @@ GridIndex Helpers::parseShipLocation(string &location) {
 }
 
 /**
- * Check if the location is valid.
- * @param gridIndex The matrix indexes (row, column)
- * @return true if the location is good, false otherwise.
+ * Parse A1 -> 00 as a string.
+ * @param location
+ * @return
  */
-bool Helpers::checkLocationOfShip(GridIndex &gridIndex) {
+string Helpers::parseLocationToString(std::string &location) {
+    vector<char> map = grid.getMAP();
 
-    // If any of the indexes are outside the bounds of the Grid, return false.
-    if (gridIndex.row > 10 || gridIndex.column > 10 || gridIndex.row < 0 || gridIndex.column < 0) {
-        return false;
+    string row, col;
+    // Loop through map, assign first character of location to be the index of the map.
+    for (int i = 0; i <= map.size(); i++) {
+        if (location[0] == map[i]) {
+            row = to_string(i);
+        }
     }
-    return true;
-
+    // Convert second character to be an integer. Subtract 1 because Grid goes from 1 - 10, and we want 0 - 9.
+    col = to_string(stoi(location.substr(1)) - 1);
+    return row + col;
 }
+
+/**
+ * Check if first character of choice is alphabetical and the characters after it are numbers.
+ * @param choice The target choice.
+ * @return True if first chacter is alphabetical and characters after it are numbers.
+ */
+bool Helpers::isAlphabet(std::string &choice) {
+    if (isalpha(choice.at(0)) && stoi(choice.substr(1)))
+        return true;
+    cout << "First character of your target must be an alphabet between 'A' - 'J'. " << endl;
+    return false;
+}
+
+/**
+ * Check if the string is in bounds.
+ * @param choice
+ * @return
+ */
+bool Helpers::isInBound(std::string &choice) {
+    if (stoi(choice.substr(1)) <= 10 && stoi(choice.substr(1)) >= 0 && choice.at(0) <= 'J' && choice.at(0) >= 'A') {
+        return true;
+    }
+    cout << "Your target is outside the Board, select again." << endl;
+    return false;
+}
+
+/**
+ * Check that the length of the input is a 3 characters large at the maximum.
+ * @param choice
+ * @return
+ */
+bool Helpers::isRightLength(std::string &choice) {
+    if (choice.length() <= 3) {
+        return true;
+    }
+    cout << "Target can only have 3 characters max." << endl;
+    return false;
+}
+
+/**
+ * Check that the choice has no spaces.
+ * @param choice
+ * @return
+ */
+bool Helpers::isSpace(std::string &choice) {
+    for (int i = 0; i < choice.length(); i++) {
+        if (isspace(choice[i])) {
+            cout << "Target cannot have spaces." << endl;
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Check that the user did not supply empty output.
+ * @param choice
+ * @return
+ */
+bool Helpers::isEmpty(std::string &choice) {
+    if (choice.length() == 0) {
+        cout << "Target cannot be empty." << endl;
+        return true;
+    }
+    return false;
+}
+
+/**
+ * Convert the input to be uppercase.
+ * @param str The choice.
+ * @return
+ */
+string Helpers::toUpper(std::string &str) {
+    string temp = "";
+    for (int i = 0; i < str.length(); i++) {
+        temp += toupper(str[i]);
+    }
+    return temp;
+}
+
+

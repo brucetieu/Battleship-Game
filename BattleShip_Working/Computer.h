@@ -26,9 +26,10 @@ public:
     void printRandShips();
     std::string randShipLocation();
     std::string randShipOrientation();
+    std::vector<Ship> getComputerShips();
 
 
-    void generateCorrectPlacements();
+    std::vector<Ship> generateCorrectPlacements();
     Grid placeShipsOnBoard();
 
 

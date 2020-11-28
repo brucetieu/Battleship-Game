@@ -16,8 +16,20 @@ private:
     Grid grid;
 public:
 
-    GridIndex parseShipLocation(std::string &location);
-    bool checkLocationOfShip(GridIndex &gridIndex);
+    // TODO: Change funciton name to commented out one below.
+
+    GridIndex parseLocationToIndex(std::string &location);
+    std::string parseLocationToString(std::string &location);
+
+    bool isAlphabet(std::string &choice);
+    bool isInBound(std::string &choice);
+    bool isRightLength(std::string &choice);
+    bool isSpace(std::string &choice);
+    bool isEmpty(std::string &choice);
+
+    std::string toUpper(std::string &str);
+
+//    bool checkLocationOfShip(GridIndex &gridIndex);
 
 };
 

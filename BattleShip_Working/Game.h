@@ -4,12 +4,31 @@
 
 #ifndef BATTLESHIP_WORKING_GAME_H
 #define BATTLESHIP_WORKING_GAME_H
+
 #include "Ship.h"
+#include "Computer.h"
+
 
 /**
  * Class which checks if the game is ready to go. So checks placements, etc.
  */
 class Game {
+private:
+    Grid humanBoard;
+    Grid computerBoard;
+    Grid trackerBoard;
+    std::vector <Ship> humanPossibleShipLocs;
+    std::vector <Ship> computerPossibleShipLocs;
+
+
+public:
+    Game();
+    Game(Grid &humanBoard, Grid &trackerBoard, Grid &computerBoard, std::vector <Ship> &humanPossibleShipLocs,
+         std::vector <Ship> &computerPossibleShipLocs);
+
+    Game buildGame();
+    void playGame(std::string &choice, Game &newGame);
+    void playGame2(Game &newGame);
 
 
 };

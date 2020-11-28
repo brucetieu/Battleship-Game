@@ -11,18 +11,22 @@
 #include <vector>
 #include "Helpers.h"
 #include "Player.h"
+#include "Game.h"
 
 
 class Human : public Player {
 private:
     Ship *ship;
+    Helpers helpers;
     std::vector<Ship> shipVector; // Hold ship info e.g [ {ship: , size: , location: , orientation} ]
 
     void _addSizeToShips();
 
+//    Game game;
+
 public:
     Human();
-    void fire();
+    void fire(Game &newGame);
 
     Ship getShip();
 

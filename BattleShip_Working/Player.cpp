@@ -54,7 +54,7 @@ vector<Ship> Player::getPossibleShipLocations(std::vector <Ship> &vecOfShips) {
         vector<string> tempVector;
 
         // Parse location of A1 -> 00, A2 -> 01, etc.
-        GridIndex indices = helpers.parseShipLocation(vecOfShips[i].shipLocation);
+        GridIndex indices = helpers.parseLocationToIndex(vecOfShips[i].shipLocation);
 
         // Fix rows, update columns.
         if (vecOfShips[i].shipOrientation.find("H") != std::string::npos) {
