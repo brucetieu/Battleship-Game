@@ -14,6 +14,8 @@
 
 using namespace std;
 
+const int Game::TOTAL_NUM_SHIPS = 17;
+
 /**
  * Constructor - initialize ship and game objects.
  */
@@ -113,14 +115,20 @@ Grid Human::placeShipsOnBoard(vector <Ship> &vecOfShips, vector <Ship> &newVecOf
 
 void Human::fire(Game &newGame) {
     Game game;
+
     string choice;
 
     while (true) {
-        cout << "Choose where to fire (A - J) and a number (1-10): ";
+        cout << "Choose where to fire (A - J) and a number (1-10). Type 'q' to quit: ";
         getline(cin, choice);
 
         // Convert input to all uppercase.
         string upperCaseChoice = helpers.toUpper(choice);
+
+        if (choice == "q") {
+            game.printResults(newGame);
+            exit(1);
+        }
 
         // Fire only if user input is validated.
         if (!helpers.isEmpty(upperCaseChoice) && !helpers.isSpace(upperCaseChoice) &&
@@ -133,16 +141,17 @@ void Human::fire(Game &newGame) {
             cout << "Computer fires..." << endl;
             int count2 = game.playGame2(newGame);
 
-            if (count1 == 17) {
+            if (count1 == Game::TOTAL_NUM_SHIPS) {
                 cout << "You Win! Game Over" << endl;
                 break;
-            } else if (count2 == 17) {
+            } else if (count2 == Game::TOTAL_NUM_SHIPS) {
                 cout << "Computer Wins! Game Over." << endl;
+                break;
             }
         } else {
-            cout << "Invalid target" << endl;
-//            break;
+            cout << "Invalid target" << endl << endl;
         }
+
     }
 
 

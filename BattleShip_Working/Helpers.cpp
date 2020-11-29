@@ -84,10 +84,10 @@ bool Helpers::isInBound(std::string &choice) {
  * @return
  */
 bool Helpers::isRightLength(std::string &choice) {
-    if (choice.length() <= 3) {
+    if (choice.length() <= 3 && choice.length() > 1) {
         return true;
     }
-    cout << "Target can only have 3 characters max." << endl;
+    cout << "Target must be between 2 or 3 characters max." << endl;
     return false;
 }
 

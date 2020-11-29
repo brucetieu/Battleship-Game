@@ -24,7 +24,11 @@ private:
     int hitCountComputer;
 
 
+
+
 public:
+    static const int TOTAL_NUM_SHIPS;
+
     Game();
     Game(Grid &humanBoard, Grid &trackerBoard, Grid &computerBoard, std::vector <Ship> &humanPossibleShipLocs,
          std::vector <Ship> &computerPossibleShipLocs);
@@ -32,6 +36,8 @@ public:
     Game buildGame();
     int playGame(std::string &choice, Game &newGame);
     int playGame2(Game &newGame);
+
+    void printResults(Game &newGame);
 
 
 };

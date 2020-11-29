@@ -15,6 +15,7 @@
 
 using namespace std;
 
+
 Game::Game() {
     hitCountComputer = 0;
     hitCountHuman = 0;
@@ -89,7 +90,6 @@ int Game::playGame(string &choice, Game &newGame) {
     string parsedChoice = helpers.parseLocationToString(choice);
     GridIndex index = helpers.parseLocationToIndex(choice);
 
-
     // Human fires
     for (int i = 0; i < newGame.computerPossibleShipLocs.size(); i++) {
         for (int j = 0; j < newGame.computerPossibleShipLocs[i].possibleShipLocations.size(); j++) {
@@ -97,9 +97,15 @@ int Game::playGame(string &choice, Game &newGame) {
 //                newGame.computerPossibleShipLocs[i].possibleShipLocations.erase(newGame.computerPossibleShipLocs[i].possibleShipLocations.begin() + j);
 
                 if (newGame.trackerBoard.GRID[index.row][index.column] != 'O')  {
-                    cout << "Hit " << newGame.computerPossibleShipLocs[i].shipType << "!" << endl;
-                    hitCountComputer += 1;
-                    cout << "Computer ships hit: " << hitCountComputer << endl;
+                    newGame.computerPossibleShipLocs[i].shipSize--;
+                    if (newGame.computerPossibleShipLocs[i].shipSize == 0) {
+                        cout << newGame.computerPossibleShipLocs[i].shipType << " is sunk!" << endl;
+                    }
+                    else {
+                        cout << "Hit " << newGame.computerPossibleShipLocs[i].shipType << " at " << choice << "!" << endl;
+                        hitCountComputer += 1;
+                        cout << "Computer ships hit: " << hitCountComputer << endl;
+                    }
                 } else {
                     cout << newGame.computerPossibleShipLocs[i].shipType << " is already hit!" << endl;
                 }
@@ -114,10 +120,10 @@ int Game::playGame(string &choice, Game &newGame) {
         }
     }
 
-    cout << "Missed!" << endl << endl;
+    cout << choice << " is a miss! "<< endl << endl;
     newGame.trackerBoard.GRID[index.row][index.column] = 'X';
 
-    cout << "Your board:" << endl << endl;
+    cout << "Your board:" << endl;
     newGame.humanBoard.printGrid();
     cout << endl;
     cout << "Your tracker board: " << endl;
@@ -148,9 +154,14 @@ int Game::playGame2(Game &newGame) {
 //                newGame.humanPossibleShipLocs[i].possibleShipLocations.erase(newGame.humanPossibleShipLocs[i].possibleShipLocations.begin() + j);
 
                 if (newGame.humanBoard.GRID[index.row][index.column] != 'O') {
-                    cout << "Hit " << newGame.humanPossibleShipLocs[i].shipType << "!" << endl;
-                    hitCountHuman += 1;
-                    cout << "Human ships hit: " << hitCountHuman << endl;
+                    newGame.humanPossibleShipLocs[i].shipSize--;
+                    if (newGame.humanPossibleShipLocs[i].shipSize == 0) {
+                        cout << newGame.humanPossibleShipLocs[i].shipType << " is sunk!" << endl;
+                    } else {
+                        cout << "Hit " << newGame.humanPossibleShipLocs[i].shipType << " at " << randChoice << "!" << endl;
+                        hitCountHuman += 1;
+                        cout << "Human ships hit: " << hitCountHuman << endl;
+                    }
                 } else {
                     cout << newGame.humanPossibleShipLocs[i].shipType << " is already hit!" << endl;
                 }
@@ -164,9 +175,7 @@ int Game::playGame2(Game &newGame) {
         }
     }
 
-
-
-    cout << "Missed!" << endl << endl;
+    cout << randChoice << " is a miss!" << endl << endl;
 
     newGame.humanBoard.GRID[index.row][index.column] = 'X';
 
@@ -175,6 +184,19 @@ int Game::playGame2(Game &newGame) {
     cout << endl;
 
     return hitCountHuman;
+
+}
+
+void Game::printResults(Game &newGame) {
+    cout << "The computer's ship configuration: " << endl;
+    newGame.computerBoard.printGrid();
+
+    cout << "Your board: " << endl;
+    newGame.humanBoard.printGrid();
+
+    cout << "Your tracking board: " << endl;
+    newGame.trackerBoard.printGrid();
+
 
 }
 
