@@ -20,6 +20,9 @@ private:
     std::vector <Ship> humanPossibleShipLocs;
     std::vector <Ship> computerPossibleShipLocs;
 
+    int hitCountHuman;
+    int hitCountComputer;
+
 
 public:
     Game();
@@ -27,8 +30,8 @@ public:
          std::vector <Ship> &computerPossibleShipLocs);
 
     Game buildGame();
-    void playGame(std::string &choice, Game &newGame);
-    void playGame2(Game &newGame);
+    int playGame(std::string &choice, Game &newGame);
+    int playGame2(Game &newGame);
 
 
 };

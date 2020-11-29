@@ -20,7 +20,7 @@ bool Player::shipsAreInBounds(vector <Ship> &newVecOfShips) {
     for (int i = 0; i < newVecOfShips.size(); i++) {
         for (int j = 0; j < newVecOfShips[i].possibleShipLocations.size(); j++) {
             if (newVecOfShips[i].possibleShipLocations[j].length() > 2) {
-                cout << "Ship " << newVecOfShips[i].shipType << " is out of bounds: " << newVecOfShips[i].possibleShipLocations[j] << endl;
+//                cout << "Ship " << newVecOfShips[i].shipType << " is out of bounds: " << newVecOfShips[i].possibleShipLocations[j] << endl;
                 return false;
             }
         }
@@ -104,7 +104,7 @@ bool Player::shipsDontOverlap(vector<Ship> &newVecOfShips) {
 
                 // If we see an element twice => overlap!
             else {
-                cout << "Overlap in this location: " << newVecOfShips[i].possibleShipLocations[j] << endl;
+//                cout << "Overlap in this location: " << newVecOfShips[i].possibleShipLocations[j] << endl;
                 return false;
             }
         }

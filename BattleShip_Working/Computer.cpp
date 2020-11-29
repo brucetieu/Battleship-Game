@@ -86,7 +86,7 @@ vector<Ship> Computer::generateCorrectPlacements() {
         if (shipsDontOverlap(newVecOfShips) && shipsAreInBounds(newVecOfShips)) {
             break;
         } else {
-            cout << "Generating..." << endl;
+//            cout << "Generating..." << endl;
             randShipPlacement();
             newVecOfShips = getPossibleShipLocations(computerShips);
         }

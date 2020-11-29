@@ -31,7 +31,7 @@ Ship Human::getShip() {
  * @param filename The name of the file.
  * @return A vector of Ship objects.
  */
-vector<Ship> Human::readShipsFromFile(string filename) {
+vector <Ship> Human::readShipsFromFile(string filename) {
     ifstream infile;
 
     try {
@@ -44,7 +44,7 @@ vector<Ship> Human::readShipsFromFile(string filename) {
 
             shipVector.push_back(*ship);
         }
-    } catch (const ifstream::failure& e) {
+    } catch (const ifstream::failure &e) {
         cout << "Error reading file" << endl;
     }
     _addSizeToShips();
@@ -77,12 +77,12 @@ void Human::_addSizeToShips() {
  * @param newVecOfShips The new vector of ships which contains all possible ship placement locations.
  * @return The grid showing the placement of ships, if placement is valid.
  */
-Grid Human::placeShipsOnBoard(vector<Ship> &vecOfShips, vector<Ship> &newVecOfShips) {
+Grid Human::placeShipsOnBoard(vector <Ship> &vecOfShips, vector <Ship> &newVecOfShips) {
     Grid grid;
     grid.createGrid();
 
     // If all ships are included, in bounds, and don't overlap then load the ships onto the board.
-    if (allShipsAreIncluded(vecOfShips) & shipsAreInBounds(newVecOfShips) & shipsDontOverlap(newVecOfShips) ) {
+    if (allShipsAreIncluded(vecOfShips) & shipsAreInBounds(newVecOfShips) & shipsDontOverlap(newVecOfShips)) {
         cout << "Ships can be placed on board." << endl;
 
         for (int i = 0; i < shipVector.size(); i++) {
@@ -107,8 +107,7 @@ Grid Human::placeShipsOnBoard(vector<Ship> &vecOfShips, vector<Ship> &newVecOfSh
                 }
             }
         }
-    }
-    else cout << "Ships can not be placed on board. Try a different configuration." << endl;
+    } else cout << "Ships can not be placed on board. Try a different configuration." << endl;
     return grid;
 }
 
@@ -124,17 +123,25 @@ void Human::fire(Game &newGame) {
         string upperCaseChoice = helpers.toUpper(choice);
 
         // Fire only if user input is validated.
-        if (!helpers.isEmpty(upperCaseChoice) && !helpers.isSpace(upperCaseChoice) && helpers.isRightLength(upperCaseChoice) &&
+        if (!helpers.isEmpty(upperCaseChoice) && !helpers.isSpace(upperCaseChoice) &&
+            helpers.isRightLength(upperCaseChoice) &&
             helpers.isAlphabet(upperCaseChoice) && helpers.isInBound(upperCaseChoice)) {
 
             // TODO: User input is validated => pass this choice into some function and see if it hits any ship.
             cout << "Firing..." << endl;
-            game.playGame(upperCaseChoice, newGame);
+            int count1 = game.playGame(upperCaseChoice, newGame);
             cout << "Computer fires..." << endl;
-            game.playGame2(newGame);
+            int count2 = game.playGame2(newGame);
+
+            if (count1 == 17) {
+                cout << "You Win! Game Over" << endl;
+                break;
+            } else if (count2 == 17) {
+                cout << "Computer Wins! Game Over." << endl;
+            }
         } else {
             cout << "Invalid target" << endl;
-            break;
+//            break;
         }
     }
 

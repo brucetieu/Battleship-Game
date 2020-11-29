@@ -41,6 +41,7 @@ void Grid::createGrid()
 
 void Grid::printGrid()
 {
+    cout << "=================================" << endl;
     printColumnLabel();
     for (row = 0; row < MAX_ROW; row++)
     {
@@ -51,6 +52,7 @@ void Grid::printGrid()
         }
         cout << endl;
     }
+    cout << "=================================" << endl;
 }
 
 Grid Grid::chooseGridLoc(const std::string &choice) {
