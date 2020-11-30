@@ -1,5 +1,6 @@
 //
 // Created by Bruce Tieu on 11/16/20.
+// Implement the function declarations in Game.h.
 //
 
 #include "Game.h"
@@ -15,33 +16,22 @@
 
 using namespace std;
 
+// Static variable initialization.
 const int Game::TOTAL_NUM_SHIPS = 17;
 
-Game::Game() {
-//    hitCountComputer = 0;
-//    hitCountHuman = 0;
-}
+/**
+ * Inline implementation of default constructor.
+ */
+Game::Game() {}
 
-//Grid Game::getHumanBoard() {
-//    return humanBoard;
-//}
-
-//Grid Game::getComputerBoard() {
-//    return computerBoard;
-//}
-
-//Grid Game::getTrackerBoard() {
-//    return trackerBoard;
-//}
-
-//vector<Ship> Game::getComputerPossibleShipLocs() {
-//    return computerPossibleShipLocs;
-//}
-
-//vector<Ship> Game::getHumanPossibleShipLocs() {
-//    return humanPossibleShipLocs;
-//}
-
+/**
+ * Initialize required game objects and vectors.
+ * @param humanBoard The human's board of ships (visible)
+ * @param trackerBoard The tracker grid to keep track of locations hit and missed (visible)
+ * @param computerBoard The computer's board (not visible).
+ * @param humanPossibleShipLocs The possible locations of each ship the human has placed.
+ * @param computerPossibleShipLocs The possible locations of each ship computer has placed (randomly).
+ */
 Game::Game(Grid &humanBoard, Grid &trackerBoard, Grid &computerBoard, std::vector <Ship> &humanPossibleShipLocs,
            std::vector <Ship> &computerPossibleShipLocs) {
     this->humanBoard = humanBoard;
@@ -100,129 +90,17 @@ Game Game::buildGame(std::string filename) {
 
 /**
  * Play the game.
- * @param choice
- * @param newGame
+ * @param newGame The new Game instance.
  */
-//int Game::playGame(string &choice, Game &newGame) {
-//
-//    Helpers helpers;
-//
-//    string parsedChoice = helpers.parseLocationToString(choice);
-//    GridIndex index = helpers.parseLocationToIndex(choice);
-//
-//    // Human fires
-//    for (int i = 0; i < newGame.computerPossibleShipLocs.size(); i++) {
-//        for (int j = 0; j < newGame.computerPossibleShipLocs[i].possibleShipLocations.size(); j++) {
-//            if (parsedChoice == newGame.computerPossibleShipLocs[i].possibleShipLocations[j]) {
-////                newGame.computerPossibleShipLocs[i].possibleShipLocations.erase(newGame.computerPossibleShipLocs[i].possibleShipLocations.begin() + j);
-//
-//                if (newGame.trackerBoard.GRID[index.row][index.column] != 'O')  {
-//                    newGame.computerPossibleShipLocs[i].shipSize--;
-//                    if (newGame.computerPossibleShipLocs[i].shipSize == 0) {
-//                        cout << newGame.computerPossibleShipLocs[i].shipType << " is sunk!" << endl;
-//                    }
-//                    else {
-//                        cout << "Hit " << newGame.computerPossibleShipLocs[i].shipType << " at " << choice << "!" << endl;
-//                        hitCountComputer += 1;
-//                        cout << "Computer ships hit: " << hitCountComputer << endl;
-//                    }
-//                } else {
-//                    cout << newGame.computerPossibleShipLocs[i].shipType << " is already hit!" << endl;
-//                }
-//
-//                newGame.trackerBoard.GRID[index.row][index.column] = 'O';
-//                cout << "Your board: " << endl;
-//                newGame.humanBoard.printGrid();
-//                cout << "Your tracking grid: " << endl;
-//                newGame.trackerBoard.printGrid();
-//                return 0;
-//            }
-//        }
-//    }
-//
-//    cout << choice << " is a miss! "<< endl << endl;
-//    newGame.trackerBoard.GRID[index.row][index.column] = 'X';
-//
-//    cout << "Your board:" << endl;
-//    newGame.humanBoard.printGrid();
-//    cout << endl;
-//    cout << "Your tracker board: " << endl;
-//    newGame.trackerBoard.printGrid();
-//
-//    return hitCountComputer;
-//}
-//
-//int Game::playGame2(Game &newGame) {
-//
-//    // Computer fires.
-//    Helpers helpers;
-//    Computer computer;
-//
-//    // Generate random target.
-//    string randChoice = computer.randShipLocation(); // e.g A1.
-//
-//    // E.g change A1 -> 00.
-//    string computerChoice = helpers.parseLocationToString(randChoice);
-//
-//    // Change A1 -> (0,0).
-//    GridIndex index = helpers.parseLocationToIndex(randChoice);
-//
-//
-//    for (int i = 0; i < newGame.humanPossibleShipLocs.size(); i++) {
-//        for (int j = 0; j < newGame.humanPossibleShipLocs[i].possibleShipLocations.size(); j++) {
-//            if (computerChoice == newGame.humanPossibleShipLocs[i].possibleShipLocations[j]) {
-////                newGame.humanPossibleShipLocs[i].possibleShipLocations.erase(newGame.humanPossibleShipLocs[i].possibleShipLocations.begin() + j);
-//
-//                if (newGame.humanBoard.GRID[index.row][index.column] != 'O') {
-//                    newGame.humanPossibleShipLocs[i].shipSize--;
-//                    if (newGame.humanPossibleShipLocs[i].shipSize == 0) {
-//                        cout << newGame.humanPossibleShipLocs[i].shipType << " is sunk!" << endl;
-//                    } else {
-//                        cout << "Hit " << newGame.humanPossibleShipLocs[i].shipType << " at " << randChoice << "!" << endl;
-//                        hitCountHuman += 1;
-//                        cout << "Human ships hit: " << hitCountHuman << endl;
-//                    }
-//                } else {
-//                    cout << newGame.humanPossibleShipLocs[i].shipType << " is already hit!" << endl;
-//                }
-//
-//                newGame.humanBoard.GRID[index.row][index.column] = 'O';
-//                cout << "Human board: " << endl;
-//                newGame.humanBoard.printGrid();
-//                cout << endl;
-//                return 0;
-//            }
-//        }
-//    }
-//
-//    cout << randChoice << " is a miss!" << endl << endl;
-//
-//    newGame.humanBoard.GRID[index.row][index.column] = 'X';
-//
-//    cout << "Your board: " << endl;
-//    newGame.humanBoard.printGrid();
-//    cout << endl;
-//
-//    return hitCountHuman;
-//
-//}
-//
-//void Game::printResults(Game &newGame) {
-//    cout << "The computer's ship configuration: " << endl;
-//    newGame.computerBoard.printGrid();
-//
-//    cout << "Your board: " << endl;
-//    newGame.humanBoard.printGrid();
-//
-//    cout << "Your tracking board: " << endl;
-//    newGame.trackerBoard.printGrid();
-//
-//
-//}
-
 void Game::playGame(Game &newGame) {
+
+    // Create temporary Game instance.
     Game game;
+
+    // Human instance.
     Human human;
+
+    // Computer instance.
     Computer computer;
 
     string choice;
@@ -231,11 +109,13 @@ void Game::playGame(Game &newGame) {
         cout << "Choose where to fire (A - J) and a number (1-10). Type 'q' to quit: ";
         getline(cin, choice);
 
-        // Convert input to all uppercase.
+        // Convert choice to all uppercase.
         string upperCaseChoice = helpers.toUpper(choice);
 
+        // Quit game if user types 'q' exactly.
         if (choice == "q") {
-//            game.printResults(newGame);
+            cout << "Quitting Game... " << endl << endl;
+            game.printResults(newGame);  // Reveal what the computer's config was.
             exit(1);
         }
 
@@ -244,14 +124,14 @@ void Game::playGame(Game &newGame) {
             helpers.isRightLength(upperCaseChoice) &&
             helpers.isAlphabet(upperCaseChoice) && helpers.isInBound(upperCaseChoice)) {
 
-            // TODO: User input is validated => pass this choice into some function and see if it hits any ship.
             cout << "Firing..." << endl;
-            int count1 = human.humanFires(upperCaseChoice, newGame);
+            int count1 = human.humanFires(upperCaseChoice, newGame);  // How many locations human has hit.
             cout << "Computer fires..." << endl;
-            int count2 = computer.computerFires(newGame);
+            int count2 = computer.computerFires(newGame);  // How many locations computer has hit.
 
             cout << "First to hit 17 ships wins! Score - You: " << count1 << " Computer: " << count2 << endl;
 
+            // End game if Human wins or Computer wins.
             if (count1 == Game::TOTAL_NUM_SHIPS) {
                 cout << "You Win! Game Over" << endl;
                 break;
@@ -263,13 +143,23 @@ void Game::playGame(Game &newGame) {
         } else {
             cout << "Invalid target" << endl << endl;
         }
-
     }
 
+}
 
-    string ParsedString = helpers.parseLocationToString(choice);
+/**
+ * Print the final board results if the game has been quit.
+ * @param newGame The current game state / instance.
+ */
+void Game::printResults(Game &newGame) {
+    cout << "The computer's ship configuration: " << endl;
+    newGame.computerBoard.printGrid();
 
+    cout << "Your board: " << endl;
+    newGame.humanBoard.printGrid();
 
+    cout << "Your tracking board: " << endl;
+    newGame.trackerBoard.printGrid();
 }
 
 
