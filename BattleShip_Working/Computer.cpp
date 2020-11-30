@@ -148,31 +148,68 @@ int Computer::computerFires(Game &newGame) {
             if (computerChoice == newGame.humanPossibleShipLocs[i].possibleShipLocations[j]) {
 //                newGame.humanPossibleShipLocs[i].possibleShipLocations.erase(newGame.humanPossibleShipLocs[i].possibleShipLocations.begin() + j);
 
-                if (newGame.humanBoard.GRID[index.row][index.column] != 'O') {
-                    hitCountHuman += 1;
-                    newGame.humanPossibleShipLocs[i].shipSize--;
-                    if (newGame.humanPossibleShipLocs[i].shipSize == 0) {
-                        cout << newGame.humanPossibleShipLocs[i].shipType << " is sunk!" << endl;
-                    } else {
-                        cout << "Hit " << newGame.humanPossibleShipLocs[i].shipType << " at " << randChoice << "!" << endl;
-                    }
-                } else {
-                    cout << newGame.humanPossibleShipLocs[i].shipType << " is already hit!" << endl;
-                }
-
-                cout << "Human ships hit: " << hitCountHuman << endl;
-
-                newGame.humanBoard.GRID[index.row][index.column] = 'O';
-                cout << "Human board: " << endl;
-                newGame.humanBoard.printGrid();
-                cout << endl;
-                return hitCountHuman;
+                return _numHumanShipsHit(newGame, index, i, randChoice);
+//                if (newGame.humanBoard.GRID[index.row][index.column] != 'O') {
+//                    hitCountHuman += 1;
+//                    newGame.humanPossibleShipLocs[i].shipSize--;
+//                    if (newGame.humanPossibleShipLocs[i].shipSize == 0) {
+//                        cout << newGame.humanPossibleShipLocs[i].shipType << " is sunk!" << endl;
+//                    } else {
+//                        cout << "Hit " << newGame.humanPossibleShipLocs[i].shipType << " at " << randChoice << "!" << endl;
+//                    }
+//                } else {
+//                    cout << newGame.humanPossibleShipLocs[i].shipType << " is already hit!" << endl;
+//                }
+//
+//                cout << "Human ships hit: " << hitCountHuman << endl;
+//
+//                newGame.humanBoard.GRID[index.row][index.column] = 'O';
+//                cout << "Human board: " << endl;
+//                newGame.humanBoard.printGrid();
+//                cout << endl;
+//                return hitCountHuman;
             }
         }
     }
 
+    return _numHumanShipsMissed(newGame, index, randChoice);
+//    cout << randChoice << " is a miss!" << endl << endl;
+//
+//    newGame.humanBoard.GRID[index.row][index.column] = 'X';
+//
+//    cout << "Your board: " << endl;
+//    newGame.humanBoard.printGrid();
+//    cout << endl;
 
-    cout << randChoice << " is a miss!" << endl << endl;
+//    return 0;
+    return hitCountHuman;
+
+}
+
+int Computer::_numHumanShipsHit(Game &newGame, GridIndex &index, int i, std::string &choice) {
+    if (newGame.humanBoard.GRID[index.row][index.column] != 'O') {
+            hitCountHuman += 1;
+            newGame.humanPossibleShipLocs[i].shipSize--;
+            if (newGame.humanPossibleShipLocs[i].shipSize == 0) {
+                cout << newGame.humanPossibleShipLocs[i].shipType << " is sunk!" << endl;
+            } else {
+                cout << "Hit " << newGame.humanPossibleShipLocs[i].shipType << " at " << choice << "!" << endl;
+            }
+        } else {
+            cout << newGame.humanPossibleShipLocs[i].shipType << " is already hit!" << endl;
+        }
+
+        cout << "Human ships hit: " << hitCountHuman << endl;
+
+        newGame.humanBoard.GRID[index.row][index.column] = 'O';
+        cout << "Human board: " << endl;
+        newGame.humanBoard.printGrid();
+        cout << endl;
+        return hitCountHuman;
+}
+
+int Computer::_numHumanShipsMissed(Game &newGame, GridIndex &index, std::string &choice) {
+    cout << choice << " is a miss!" << endl << endl;
 
     newGame.humanBoard.GRID[index.row][index.column] = 'X';
 
@@ -180,7 +217,5 @@ int Computer::computerFires(Game &newGame) {
     newGame.humanBoard.printGrid();
     cout << endl;
 
-//    return 0;
     return hitCountHuman;
-
 }

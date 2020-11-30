@@ -22,6 +22,9 @@ private:
 
     int hitCountHuman;
 
+    int _numHumanShipsHit(Game &newGame, GridIndex &index, int i, std::string &choice);
+    int _numHumanShipsMissed(Game &newGame, GridIndex &index, std::string &choice);
+
 public:
 
     Computer();

@@ -14,23 +14,25 @@
 
 using namespace std;
 
-
 /**
- * Constructor - initialize ship and game objects.
+ * Constructor - initialize ship object.
  */
 Human::Human() {
-    ship = new Ship();
-    hitCountComputer = 0;
+    ship = new Ship();  // Dynamically create a new ship.
+    hitCountComputer = 0; // Initialize the initial number of computer ships hit to be 0.
 }
 
+/**
+ * Get the ship object.
+ * @return The Ship object.
+ */
 Ship Human::getShip() {
     return *ship;
 }
 
-
 /**
  * Read in Ship type, location, and orientation into a vector of Ship objects.
- * @param filename The name of the file.
+ * @param filename The name of the ship placement configuration file.
  * @return A vector of Ship objects.
  */
 vector <Ship> Human::readShipsFromFile(string filename) {
@@ -81,7 +83,7 @@ void Human::_addSizeToShips() {
  */
 Grid Human::placeShipsOnBoard(vector <Ship> &vecOfShips, vector <Ship> &newVecOfShips) {
     Grid grid;
-    grid.createGrid();
+    grid.createGrid(); // Create the blank board.
 
     // If all ships are included, in bounds, and don't overlap then load the ships onto the board.
     if (allShipsAreIncluded(vecOfShips) & shipsAreInBounds(newVecOfShips) & shipsDontOverlap(newVecOfShips)) {
@@ -89,18 +91,18 @@ Grid Human::placeShipsOnBoard(vector <Ship> &vecOfShips, vector <Ship> &newVecOf
 
         for (int i = 0; i < shipVector.size(); i++) {
 
+            // Convert the location to be an integer.
             GridIndex indices = helpers.parseLocationToIndex(shipVector[i].shipLocation);
 
             // Fix rows, update columns if ship is horizontal.
             if (shipVector[i].shipOrientation.find("H") != std::string::npos) {
                 for (int row = indices.row; row <= indices.row; row++) {
                     for (int col = indices.column; col < shipVector[i].shipSize + indices.column; col++) {
-                        grid.GRID[row][col] = shipVector[i].shipType[0];
-
+                        grid.GRID[row][col] = shipVector[i].shipType[0]; // Put the first letter of each ship in the Grid.
                     }
                 }
             }
-                // Fix columns, update rows if ship is vertical.
+            // Fix columns, update rows if ship is vertical.
             else if (shipVector[i].shipOrientation.find("V") != std::string::npos) {
                 for (int col = indices.column; col <= indices.column; col++) {
                     for (int row = indices.row; row < shipVector[i].shipSize + indices.row; row++) {
@@ -111,15 +113,15 @@ Grid Human::placeShipsOnBoard(vector <Ship> &vecOfShips, vector <Ship> &newVecOf
         }
     } else {
         cout << "Ships can not be placed on board. Try a different configuration. Change the config in your file or read in a different file." << endl;
-        exit(1);
+        exit(1); // Exit program if there is an issue with the ships.
     }
     return grid;
 }
 
 /**
- * Play the game.
- * @param choice
- * @param newGame
+ * Allow human to fire.
+ * @param choice The target (A1, A2, ... J10).
+ * @param newGame The current game state.
  */
 int Human::humanFires(string &choice, Game &newGame) {
 
@@ -127,40 +129,89 @@ int Human::humanFires(string &choice, Game &newGame) {
 
     string parsedChoice = helpers.parseLocationToString(choice);
     GridIndex index = helpers.parseLocationToIndex(choice);
-//    Grid trackerBoard = newGame.getTrackerBoard();
 
-    // Human fires
+    // Human fires, loop through the vector of all possible ship locs and check if the target is in there.
     for (int i = 0; i < newGame.computerPossibleShipLocs.size(); i++) {
         for (int j = 0; j < newGame.computerPossibleShipLocs[i].possibleShipLocations.size(); j++) {
             if (parsedChoice == newGame.computerPossibleShipLocs[i].possibleShipLocations[j]) {
-//                newGame.computerPossibleShipLocs[i].possibleShipLocations.erase(newGame.computerPossibleShipLocs[i].possibleShipLocations.begin() + j);
 
-                if (newGame.trackerBoard.GRID[index.row][index.column] != 'O')  {
-                    hitCountComputer += 1;
-                    newGame.computerPossibleShipLocs[i].shipSize--;
-                    if (newGame.computerPossibleShipLocs[i].shipSize == 0) {
-                        cout << newGame.computerPossibleShipLocs[i].shipType << " is sunk!" << endl;
-                    }
-                    else {
-                        cout << "Hit " << newGame.computerPossibleShipLocs[i].shipType << " at " << choice << "!" << endl;
-//                        hitCountComputer += 1;
-                    }
-                } else {
-                    cout << newGame.computerPossibleShipLocs[i].shipType << " is already hit!" << endl;
-                }
-
-                cout << "Computer ships hit: " << hitCountComputer << endl;
-
-                newGame.trackerBoard.GRID[index.row][index.column] = 'O';
-                cout << "Your board: " << endl;
-                newGame.humanBoard.printGrid();
-                cout << "Your tracking grid: " << endl;
-                newGame.trackerBoard.printGrid();
-                return hitCountComputer;
+                return _numComputerShipsHit(newGame, index, i, choice);
+                // If location has not already been hit, then hit it.
+//                if (newGame.trackerBoard.GRID[index.row][index.column] != 'O')  {
+//                    hitCountComputer += 1;  // Iterate the count by 1.
+//                    newGame.computerPossibleShipLocs[i].shipSize--; // Decrement the size of ship by 1.
+//
+//                    // If the ship's size is 0, then the specific ship is sunk.
+//                    if (newGame.computerPossibleShipLocs[i].shipSize == 0) {
+//                        cout << newGame.computerPossibleShipLocs[i].shipType << " is sunk!" << endl;
+//                    }
+//
+//                    // Otherwise, it's a hit.
+//                    else {
+//                        cout << "Hit " << newGame.computerPossibleShipLocs[i].shipType << " at " << choice << "!" << endl;
+//                    }
+//                }
+//                // If ship was already hit, then let the user know.
+//                else {
+//                    cout << newGame.computerPossibleShipLocs[i].shipType << " is already hit!" << endl;
+//                }
+//
+//                cout << "Computer ships hit: " << hitCountComputer << endl;
+//
+//                newGame.trackerBoard.GRID[index.row][index.column] = 'O';
+//                cout << "Your board: " << endl;
+//                newGame.humanBoard.printGrid();
+//                cout << "Your tracking grid: " << endl;
+//                newGame.trackerBoard.printGrid();
+//                return hitCountComputer;
             }
         }
     }
 
+    return _numComputerShipsMissed(newGame, index, choice);
+//    cout << choice << " is a miss! "<< endl << endl;
+//    newGame.trackerBoard.GRID[index.row][index.column] = 'X';
+//
+//    cout << "Your board:" << endl;
+//    newGame.humanBoard.printGrid();
+//    cout << endl;
+//    cout << "Your tracker board: " << endl;
+//    newGame.trackerBoard.printGrid();
+//
+//    return hitCountComputer;
+}
+
+int Human::_numComputerShipsHit(Game &newGame, GridIndex &index, int i, std::string &choice) {
+    if (newGame.trackerBoard.GRID[index.row][index.column] != 'O')  {
+        hitCountComputer += 1;  // Iterate the count by 1.
+        newGame.computerPossibleShipLocs[i].shipSize--; // Decrement the size of ship by 1.
+
+        // If the ship's size is 0, then the specific ship is sunk.
+        if (newGame.computerPossibleShipLocs[i].shipSize == 0) {
+            cout << newGame.computerPossibleShipLocs[i].shipType << " is sunk!" << endl;
+        }
+
+        // Otherwise, it's a hit.
+        else {
+            cout << "Hit " << newGame.computerPossibleShipLocs[i].shipType << " at " << choice << "!" << endl;
+        }
+    }
+        // If ship was already hit, then let the user know.
+    else {
+        cout << newGame.computerPossibleShipLocs[i].shipType << " is already hit!" << endl;
+    }
+
+    cout << "Computer ships hit: " << hitCountComputer << endl;
+
+    newGame.trackerBoard.GRID[index.row][index.column] = 'O';
+//    cout << "Your board: " << endl;
+//    newGame.humanBoard.printGrid();
+    cout << "Your tracking grid: " << endl;
+    newGame.trackerBoard.printGrid();
+    return hitCountComputer;
+}
+
+int Human::_numComputerShipsMissed(Game &newGame, GridIndex &index, std::string &choice) {
     cout << choice << " is a miss! "<< endl << endl;
     newGame.trackerBoard.GRID[index.row][index.column] = 'X';
 
@@ -170,53 +221,5 @@ int Human::humanFires(string &choice, Game &newGame) {
     cout << "Your tracker board: " << endl;
     newGame.trackerBoard.printGrid();
 
-//    return 0;
     return hitCountComputer;
 }
-
-//void Human::fire(Game &newGame) {
-//    Game game;
-//
-//    string choice;
-//
-//    while (true) {
-//        cout << "Choose where to fire (A - J) and a number (1-10). Type 'q' to quit: ";
-//        getline(cin, choice);
-//
-//        // Convert input to all uppercase.
-//        string upperCaseChoice = helpers.toUpper(choice);
-//
-//        if (choice == "q") {
-//            game.printResults(newGame);
-//            exit(1);
-//        }
-//
-//        // Fire only if user input is validated.
-//        if (!helpers.isEmpty(upperCaseChoice) && !helpers.isSpace(upperCaseChoice) &&
-//            helpers.isRightLength(upperCaseChoice) &&
-//            helpers.isAlphabet(upperCaseChoice) && helpers.isInBound(upperCaseChoice)) {
-//
-//            // TODO: User input is validated => pass this choice into some function and see if it hits any ship.
-//            cout << "Firing..." << endl;
-//            int count1 = game.playGame(upperCaseChoice, newGame);
-//            cout << "Computer fires..." << endl;
-//            int count2 = game.playGame2(newGame);
-//
-//            if (count1 == Game::TOTAL_NUM_SHIPS) {
-//                cout << "You Win! Game Over" << endl;
-//                break;
-//            } else if (count2 == Game::TOTAL_NUM_SHIPS) {
-//                cout << "Computer Wins! Game Over." << endl;
-//                break;
-//            }
-//        } else {
-//            cout << "Invalid target" << endl << endl;
-//        }
-//
-//    }
-//
-//
-//    string ParsedString = helpers.parseLocationToString(choice);
-//
-//
-//}
