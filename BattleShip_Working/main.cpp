@@ -9,7 +9,6 @@
 
 using namespace std;
 
-//char Grid::GRID[Grid::MAX_COLUMN][Grid::MAX_COLUMN] = {{'0'}};
 int main()
 {
     Game game;
