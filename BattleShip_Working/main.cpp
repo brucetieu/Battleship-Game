@@ -13,7 +13,7 @@ using namespace std;
 int main()
 {
     Game game;
-    Game newGame = game.buildGame();
+    Game newGame = game.buildGame("ship_placement1_good.csv");
 
 
     game.playGame(newGame);

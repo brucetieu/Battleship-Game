@@ -49,7 +49,7 @@ vector <Ship> Human::readShipsFromFile(string filename) {
     } catch (const ifstream::failure &e) {
         cout << "Error reading file" << endl;
     }
-    _addSizeToShips();
+    _addSizeToShips();  // Add sizes to each ship.
     return shipVector;
 }
 
@@ -109,7 +109,10 @@ Grid Human::placeShipsOnBoard(vector <Ship> &vecOfShips, vector <Ship> &newVecOf
                 }
             }
         }
-    } else cout << "Ships can not be placed on board. Try a different configuration." << endl;
+    } else {
+        cout << "Ships can not be placed on board. Try a different configuration. Change the config in your file or read in a different file." << endl;
+        exit(1);
+    }
     return grid;
 }
 

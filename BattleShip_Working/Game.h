@@ -46,7 +46,7 @@ public:
     Game(Grid &humanBoard, Grid &trackerBoard, Grid &computerBoard, std::vector <Ship> &humanPossibleShipLocs,
          std::vector <Ship> &computerPossibleShipLocs);
 
-    Game buildGame();
+    Game buildGame(std::string filename);
 //    int playGame(std::string &choice, Game &newGame);
 //    int playGame2(Game &newGame);
 

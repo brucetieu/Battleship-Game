@@ -55,7 +55,7 @@ Game::Game(Grid &humanBoard, Grid &trackerBoard, Grid &computerBoard, std::vecto
  * Build the game and return a Game object with all the necessary components.
  * @return A Game instance.
  */
-Game Game::buildGame() {
+Game Game::buildGame(std::string filename) {
 
     std::vector <Ship> humanPossibleShipLocs;
     std::vector <Ship> computerPossibleShipLocs;
@@ -73,16 +73,15 @@ Game Game::buildGame() {
     Human human;
 
     vector<Ship> vecOfShips;
-    vector<Ship> newVecOfShips;
 
     // Original locations of ships.
-    vecOfShips = human.readShipsFromFile("ship_placement1_good.csv");
+    vecOfShips = human.readShipsFromFile(filename);
 
     // All possible locations human has placed via reading in from a file.
     humanPossibleShipLocs = human.getPossibleShipLocations(vecOfShips);
 
     // Construct the board for the player.
-    Grid humanBoard = human.placeShipsOnBoard(vecOfShips, newVecOfShips);
+    Grid humanBoard = human.placeShipsOnBoard(vecOfShips, humanPossibleShipLocs);
     cout << "Here is your ship configuration: " << endl;
     humanBoard.printGrid();
 
