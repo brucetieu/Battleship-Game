@@ -3,6 +3,7 @@
 //
 
 #include "Computer.h"
+#include "Game.h"
 #include "GridIndex.h"
 #include "Player.h"
 #include "Helpers.h"
@@ -16,7 +17,8 @@ using namespace std;
 Computer::Computer() : shipTypes{"Carrier", "Battleship", "Cruiser", "Submarine", "Destroyer"},
                        shipSizes{5, 4, 3, 3, 2},
                        shipOrientations{"H", "V"},
-                       letters {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"} {}
+                       letters {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"},
+                       hitCountHuman(0) {}
 
 
 
@@ -122,4 +124,63 @@ Grid Computer::placeShipsOnBoard() {
         }
     }
     return grid;
+}
+
+int Computer::computerFires(Game &newGame) {
+
+    // Computer fires.
+    Helpers helpers;
+    Computer computer;
+//    Grid humanBoard = newGame.getHumanBoard();
+
+    // Generate random target.
+    string randChoice = computer.randShipLocation(); // e.g A1.
+
+    // E.g change A1 -> 00.
+    string computerChoice = helpers.parseLocationToString(randChoice);
+
+    // Change A1 -> (0,0).
+    GridIndex index = helpers.parseLocationToIndex(randChoice);
+
+
+    for (int i = 0; i < newGame.humanPossibleShipLocs.size(); i++) {
+        for (int j = 0; j < newGame.humanPossibleShipLocs[i].possibleShipLocations.size(); j++) {
+            if (computerChoice == newGame.humanPossibleShipLocs[i].possibleShipLocations[j]) {
+//                newGame.humanPossibleShipLocs[i].possibleShipLocations.erase(newGame.humanPossibleShipLocs[i].possibleShipLocations.begin() + j);
+
+                if (newGame.humanBoard.GRID[index.row][index.column] != 'O') {
+                    hitCountHuman += 1;
+                    newGame.humanPossibleShipLocs[i].shipSize--;
+                    if (newGame.humanPossibleShipLocs[i].shipSize == 0) {
+                        cout << newGame.humanPossibleShipLocs[i].shipType << " is sunk!" << endl;
+                    } else {
+                        cout << "Hit " << newGame.humanPossibleShipLocs[i].shipType << " at " << randChoice << "!" << endl;
+                    }
+                } else {
+                    cout << newGame.humanPossibleShipLocs[i].shipType << " is already hit!" << endl;
+                }
+
+                cout << "Human ships hit: " << hitCountHuman << endl;
+
+                newGame.humanBoard.GRID[index.row][index.column] = 'O';
+                cout << "Human board: " << endl;
+                newGame.humanBoard.printGrid();
+                cout << endl;
+                return hitCountHuman;
+            }
+        }
+    }
+
+
+    cout << randChoice << " is a miss!" << endl << endl;
+
+    newGame.humanBoard.GRID[index.row][index.column] = 'X';
+
+    cout << "Your board: " << endl;
+    newGame.humanBoard.printGrid();
+    cout << endl;
+
+//    return 0;
+    return hitCountHuman;
+
 }

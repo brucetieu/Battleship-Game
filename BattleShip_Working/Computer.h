@@ -7,6 +7,7 @@
 
 #include "Ship.h"
 #include "Player.h"
+#include "Game.h"
 
 class Computer : public Player {
 
@@ -18,6 +19,8 @@ private:
     int shipSizes[5];
     std::string shipOrientations[2];
     std::vector<Ship> shipLocations; // Hold the ship locations: 00, 01, 02, ...
+
+    int hitCountHuman;
 
 public:
 
@@ -31,6 +34,8 @@ public:
 
     std::vector<Ship> generateCorrectPlacements();
     Grid placeShipsOnBoard();
+
+    int computerFires(Game &newGame);
 
 
 };

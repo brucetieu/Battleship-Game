@@ -6,7 +6,8 @@
 #define BATTLESHIP_WORKING_GAME_H
 
 #include "Ship.h"
-#include "Computer.h"
+//#include "Computer.h"
+#include "Helpers.h"
 
 
 /**
@@ -14,14 +15,15 @@
  */
 class Game {
 private:
-    Grid humanBoard;
-    Grid computerBoard;
-    Grid trackerBoard;
-    std::vector <Ship> humanPossibleShipLocs;
-    std::vector <Ship> computerPossibleShipLocs;
+//    Grid humanBoard;
+//    Grid computerBoard;
+//    Grid trackerBoard;
+//    std::vector <Ship> humanPossibleShipLocs;
+//    std::vector <Ship> computerPossibleShipLocs;
 
-    int hitCountHuman;
-    int hitCountComputer;
+    Helpers helpers;
+//    int hitCountHuman;
+//    int hitCountComputer;
 
 
 
@@ -29,15 +31,28 @@ private:
 public:
     static const int TOTAL_NUM_SHIPS;
 
+    Grid humanBoard;
+    Grid computerBoard;
+    Grid trackerBoard;
+    std::vector <Ship> humanPossibleShipLocs;
+    std::vector <Ship> computerPossibleShipLocs;
+//    Grid getHumanBoard();
+//    Grid getComputerBoard();
+//    Grid getTrackerBoard();
+//    std::vector<Ship> getHumanPossibleShipLocs();
+//    std::vector<Ship> getComputerPossibleShipLocs();
+
     Game();
     Game(Grid &humanBoard, Grid &trackerBoard, Grid &computerBoard, std::vector <Ship> &humanPossibleShipLocs,
          std::vector <Ship> &computerPossibleShipLocs);
 
     Game buildGame();
-    int playGame(std::string &choice, Game &newGame);
-    int playGame2(Game &newGame);
+//    int playGame(std::string &choice, Game &newGame);
+//    int playGame2(Game &newGame);
 
-    void printResults(Game &newGame);
+
+    void playGame(Game &newGame);
+//    void printResults(Game &newGame);
 
 
 };

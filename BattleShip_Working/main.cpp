@@ -14,9 +14,12 @@ int main()
 {
     Game game;
     Game newGame = game.buildGame();
-    Human human;
 
-    human.fire(newGame);
+
+    game.playGame(newGame);
+//    Human human;
+
+//    human.fire(newGame);
 //    Game game;
 //    game.playGame();
 

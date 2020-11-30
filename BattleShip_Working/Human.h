@@ -22,12 +22,15 @@ private:
 
     void _addSizeToShips();
 
+    int hitCountComputer;
+
 //    Game game;
 
 public:
     Human();
-    void fire(Game &newGame);
+//    void fire(Game &newGame);
 
+    int humanFires(std::string &choice, Game &newGame);
     Ship getShip();
 
     std::vector<Ship> readShipsFromFile(std::string filename);

@@ -14,13 +14,13 @@
 
 using namespace std;
 
-const int Game::TOTAL_NUM_SHIPS = 17;
 
 /**
  * Constructor - initialize ship and game objects.
  */
 Human::Human() {
     ship = new Ship();
+    hitCountComputer = 0;
 }
 
 Ship Human::getShip() {
@@ -113,49 +113,107 @@ Grid Human::placeShipsOnBoard(vector <Ship> &vecOfShips, vector <Ship> &newVecOf
     return grid;
 }
 
-void Human::fire(Game &newGame) {
-    Game game;
+/**
+ * Play the game.
+ * @param choice
+ * @param newGame
+ */
+int Human::humanFires(string &choice, Game &newGame) {
 
-    string choice;
+    Helpers helpers;
 
-    while (true) {
-        cout << "Choose where to fire (A - J) and a number (1-10). Type 'q' to quit: ";
-        getline(cin, choice);
+    string parsedChoice = helpers.parseLocationToString(choice);
+    GridIndex index = helpers.parseLocationToIndex(choice);
+//    Grid trackerBoard = newGame.getTrackerBoard();
 
-        // Convert input to all uppercase.
-        string upperCaseChoice = helpers.toUpper(choice);
+    // Human fires
+    for (int i = 0; i < newGame.computerPossibleShipLocs.size(); i++) {
+        for (int j = 0; j < newGame.computerPossibleShipLocs[i].possibleShipLocations.size(); j++) {
+            if (parsedChoice == newGame.computerPossibleShipLocs[i].possibleShipLocations[j]) {
+//                newGame.computerPossibleShipLocs[i].possibleShipLocations.erase(newGame.computerPossibleShipLocs[i].possibleShipLocations.begin() + j);
 
-        if (choice == "q") {
-            game.printResults(newGame);
-            exit(1);
-        }
+                if (newGame.trackerBoard.GRID[index.row][index.column] != 'O')  {
+                    hitCountComputer += 1;
+                    newGame.computerPossibleShipLocs[i].shipSize--;
+                    if (newGame.computerPossibleShipLocs[i].shipSize == 0) {
+                        cout << newGame.computerPossibleShipLocs[i].shipType << " is sunk!" << endl;
+                    }
+                    else {
+                        cout << "Hit " << newGame.computerPossibleShipLocs[i].shipType << " at " << choice << "!" << endl;
+//                        hitCountComputer += 1;
+                    }
+                } else {
+                    cout << newGame.computerPossibleShipLocs[i].shipType << " is already hit!" << endl;
+                }
 
-        // Fire only if user input is validated.
-        if (!helpers.isEmpty(upperCaseChoice) && !helpers.isSpace(upperCaseChoice) &&
-            helpers.isRightLength(upperCaseChoice) &&
-            helpers.isAlphabet(upperCaseChoice) && helpers.isInBound(upperCaseChoice)) {
+                cout << "Computer ships hit: " << hitCountComputer << endl;
 
-            // TODO: User input is validated => pass this choice into some function and see if it hits any ship.
-            cout << "Firing..." << endl;
-            int count1 = game.playGame(upperCaseChoice, newGame);
-            cout << "Computer fires..." << endl;
-            int count2 = game.playGame2(newGame);
-
-            if (count1 == Game::TOTAL_NUM_SHIPS) {
-                cout << "You Win! Game Over" << endl;
-                break;
-            } else if (count2 == Game::TOTAL_NUM_SHIPS) {
-                cout << "Computer Wins! Game Over." << endl;
-                break;
+                newGame.trackerBoard.GRID[index.row][index.column] = 'O';
+                cout << "Your board: " << endl;
+                newGame.humanBoard.printGrid();
+                cout << "Your tracking grid: " << endl;
+                newGame.trackerBoard.printGrid();
+                return hitCountComputer;
             }
-        } else {
-            cout << "Invalid target" << endl << endl;
         }
-
     }
 
+    cout << choice << " is a miss! "<< endl << endl;
+    newGame.trackerBoard.GRID[index.row][index.column] = 'X';
 
-    string ParsedString = helpers.parseLocationToString(choice);
+    cout << "Your board:" << endl;
+    newGame.humanBoard.printGrid();
+    cout << endl;
+    cout << "Your tracker board: " << endl;
+    newGame.trackerBoard.printGrid();
 
-
+//    return 0;
+    return hitCountComputer;
 }
+
+//void Human::fire(Game &newGame) {
+//    Game game;
+//
+//    string choice;
+//
+//    while (true) {
+//        cout << "Choose where to fire (A - J) and a number (1-10). Type 'q' to quit: ";
+//        getline(cin, choice);
+//
+//        // Convert input to all uppercase.
+//        string upperCaseChoice = helpers.toUpper(choice);
+//
+//        if (choice == "q") {
+//            game.printResults(newGame);
+//            exit(1);
+//        }
+//
+//        // Fire only if user input is validated.
+//        if (!helpers.isEmpty(upperCaseChoice) && !helpers.isSpace(upperCaseChoice) &&
+//            helpers.isRightLength(upperCaseChoice) &&
+//            helpers.isAlphabet(upperCaseChoice) && helpers.isInBound(upperCaseChoice)) {
+//
+//            // TODO: User input is validated => pass this choice into some function and see if it hits any ship.
+//            cout << "Firing..." << endl;
+//            int count1 = game.playGame(upperCaseChoice, newGame);
+//            cout << "Computer fires..." << endl;
+//            int count2 = game.playGame2(newGame);
+//
+//            if (count1 == Game::TOTAL_NUM_SHIPS) {
+//                cout << "You Win! Game Over" << endl;
+//                break;
+//            } else if (count2 == Game::TOTAL_NUM_SHIPS) {
+//                cout << "Computer Wins! Game Over." << endl;
+//                break;
+//            }
+//        } else {
+//            cout << "Invalid target" << endl << endl;
+//        }
+//
+//    }
+//
+//
+//    string ParsedString = helpers.parseLocationToString(choice);
+//
+//
+//}
