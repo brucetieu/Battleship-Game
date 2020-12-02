@@ -80,7 +80,6 @@ Game Game::buildGame(std::string filename) {
     // Create the tracking grid.
     cout << "Here is your tracking grid of shots you have fired: " << endl;
     Grid trackerBoard;
-    trackerBoard.createGrid();
     trackerBoard.printGrid();
 
     // Return new game instance.
