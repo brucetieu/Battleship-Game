@@ -1,5 +1,6 @@
 //
 // Created by Bruce Tieu on 11/7/20.
+// Implement function declarations in Helpers.h.
 //
 
 #include "Helpers.h"
@@ -36,12 +37,13 @@ GridIndex Helpers::parseLocationToIndex(string &location) {
 /**
  * Parse A1 -> 00 as a string.
  * @param location
- * @return
+ * @return The string, e.g "00", "01", ..., "99".
  */
 string Helpers::parseLocationToString(std::string &location) {
     vector<char> map = grid.getMAP();
 
     string row, col;
+
     // Loop through map, assign first character of location to be the index of the map.
     for (int i = 0; i <= map.size(); i++) {
         if (location[0] == map[i]) {
@@ -56,7 +58,7 @@ string Helpers::parseLocationToString(std::string &location) {
 /**
  * Check if first character of choice is alphabetical and the characters after it are numbers.
  * @param choice The target choice.
- * @return True if first chacter is alphabetical and characters after it are numbers.
+ * @return True if first character is alphabetical and characters after it are numbers.
  */
 bool Helpers::isAlphabet(std::string &choice) {
     if (isalpha(choice.at(0)) && stoi(choice.substr(1)))
@@ -67,8 +69,8 @@ bool Helpers::isAlphabet(std::string &choice) {
 
 /**
  * Check if the string is in bounds.
- * @param choice
- * @return
+ * @param choice The target.
+ * @return True, if in bounds, false if not in bounds.
  */
 bool Helpers::isInBound(std::string &choice) {
     if (stoi(choice.substr(1)) <= 10 && stoi(choice.substr(1)) >= 0 && choice.at(0) <= 'J' && choice.at(0) >= 'A') {
@@ -80,8 +82,8 @@ bool Helpers::isInBound(std::string &choice) {
 
 /**
  * Check that the length of the input is a 3 characters large at the maximum.
- * @param choice
- * @return
+ * @param choice The target.
+ * @return True, if the target is correct length, false otherwise.
  */
 bool Helpers::isRightLength(std::string &choice) {
     if (choice.length() <= 3 && choice.length() > 1) {
@@ -93,8 +95,8 @@ bool Helpers::isRightLength(std::string &choice) {
 
 /**
  * Check that the choice has no spaces.
- * @param choice
- * @return
+ * @param choice The target choice.
+ * @return True, if there's a space, false otherwise.
  */
 bool Helpers::isSpace(std::string &choice) {
     for (int i = 0; i < choice.length(); i++) {
@@ -108,8 +110,8 @@ bool Helpers::isSpace(std::string &choice) {
 
 /**
  * Check that the user did not supply empty output.
- * @param choice
- * @return
+ * @param choice The target choice.
+ * @return True, if no input was supplied and false otherwise.
  */
 bool Helpers::isEmpty(std::string &choice) {
     if (choice.length() == 0) {
@@ -121,8 +123,8 @@ bool Helpers::isEmpty(std::string &choice) {
 
 /**
  * Convert the input to be uppercase.
- * @param str The choice.
- * @return
+ * @param str The target.
+ * @return The string which is capitalized.
  */
 string Helpers::toUpper(std::string &str) {
     string temp = "";
