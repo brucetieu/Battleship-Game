@@ -7,6 +7,7 @@
 
 #include "Ship.h"
 #include "Helpers.h"
+#include <string>
 
 
 /**

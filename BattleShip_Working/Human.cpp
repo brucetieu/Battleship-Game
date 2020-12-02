@@ -51,7 +51,7 @@ vector <Ship> Human::readShipsFromFile(string filename) {
 
     _addSizeToShips();  // Add sizes to each ship.
 
-    infile.close;  // Close the file.
+    infile.close();  // Close the file.
 
     return shipVector;
 }
