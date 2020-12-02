@@ -1,3 +1,5 @@
+// Implement function declarations in Grid.h
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -6,48 +8,55 @@
 
 using namespace std;
 
-
-Grid::Grid()
-{
-
-}
-
-Grid::Grid(int &row, int &column) {
-    this->row = row;
-    this->column = column;
-}
-
-int Grid::getRow() const {
-    return this->row;
-}
-int Grid::getColumn() const {
-    return this->column;
-}
-
-vector<char> Grid::getMAP() {
-    return MAP;
-}
-
-void Grid::createGrid()
-{
-    for (row = 0; row < MAX_ROW; row++)
-    {
-        for (column = 0; column < MAX_COLUMN; column++)
-        {
+/**
+ * Default constructor. Create the blank Grid.
+ */
+Grid::Grid() {
+    for (row = 0; row < MAX_ROW; row++) {
+        for (column = 0; column < MAX_COLUMN; column++) {
             GRID[row][column] = '#';
         }
     }
 }
 
-void Grid::printGrid()
-{
+/**
+ * Parameterized constructor which initializes the row and column of the Grid.
+ * @param row
+ * @param column
+ */
+Grid::Grid(int &row, int &column) {
+    this->row = row;
+    this->column = column;
+}
+
+
+/**
+ * Get the row.
+ * @return The row from 0-9.
+ */
+int Grid::getRow() const { return this->row; }
+
+/**
+ * Get the column.
+ * @return The column from 0-9.
+ */
+int Grid::getColumn() const { return this->column; }
+
+/**
+ * Get the mapping of alphabets.
+ * @return The vector.
+ */
+vector<char> Grid::getMAP() { return MAP; }
+
+/**
+ * Print the Grid.
+ */
+void Grid::printGrid() {
     cout << "=================================" << endl;
     printColumnLabel();
-    for (row = 0; row < MAX_ROW; row++)
-    {
+    for (row = 0; row < MAX_ROW; row++) {
         cout << MAP[row] << "  ";
-        for (column = 0; column < MAX_COLUMN; column++)
-        {   
+        for (column = 0; column < MAX_COLUMN; column++) {
             cout << GRID[row][column] << " ";
         }
         cout << endl;
@@ -55,28 +64,9 @@ void Grid::printGrid()
     cout << "=================================" << endl;
 }
 
-Grid Grid::chooseGridLoc(const std::string &choice) {
-
-    // vector<char> map = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
-    int x, y;
-    
-    for (int i = 1; i <= MAP.size(); i++) {
-        if (choice[0] == MAP[i]) {
-            x = i;
-        }
-    }
-    
-      y = stoi(choice.substr(1)) - 1;
-
-    return Grid(x, y);
-    
-}
-
-void Grid::updateGrid(Grid &grid) {
-    GRID[grid.getRow()][grid.getColumn()] = 'X';
-    printGrid();
-}
-
+/**
+ * Print the column labels.
+ */
 void Grid::printColumnLabel() {
     cout << setw(4);
     for (int i = 0; i < MAX_ROW; i++) {
@@ -85,11 +75,12 @@ void Grid::printColumnLabel() {
     cout << endl;
 }
 
-void Grid::clearGrid() {
-    for (row = 0; row < MAX_ROW; row++)
-    {
-        for (column = 0; column < MAX_COLUMN; column++)
-        {
+/**
+ * Clear the Grid.
+ */
+Grid::~Grid() {
+    for (row = 0; row < MAX_ROW; row++) {
+        for (column = 0; column < MAX_COLUMN; column++) {
             GRID[row][column] = '#';
         }
     }

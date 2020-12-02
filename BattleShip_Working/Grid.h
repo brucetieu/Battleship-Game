@@ -18,18 +18,14 @@ private:
 public:
     char GRID[MAX_ROW][MAX_COLUMN] = {{'0'}};
     Grid();
+    ~Grid();
     Grid(int &row, int &column);
     int getRow() const;
     int getColumn() const;
 
 
-
-    void createGrid();
     void printGrid();
-    Grid chooseGridLoc(const std::string &choice);
-    void updateGrid(Grid &grid);
     void printColumnLabel();
-    void clearGrid();
     std::vector<char> getMAP();
 
 };

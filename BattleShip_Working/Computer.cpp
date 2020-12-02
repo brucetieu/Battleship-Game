@@ -98,7 +98,6 @@ vector<Ship> Computer::generateCorrectPlacements() {
 
 Grid Computer::placeShipsOnBoard() {
     Grid grid;
-    grid.createGrid();
 
     Helpers helpers;
 
