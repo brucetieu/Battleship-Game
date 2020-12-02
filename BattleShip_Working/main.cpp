@@ -15,7 +15,7 @@ using namespace std;
  */
 int main()
 {
-    // Create a
+    // Create a game instance and play it.
     Game game;
     Game newGame = game.buildGame("ship_placement1_good.csv");
     game.playGame(newGame);
