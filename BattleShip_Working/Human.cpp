@@ -16,20 +16,16 @@
 using namespace std;
 
 /**
- * Constructor - initialize ship object.
+ * Constructor - initialize ship object and counter
  */
-Human::Human() {
-    ship = new Ship();  // Dynamically create a new ship.
-    hitCountComputer = 0; // Initialize the initial number of computer ships hit to be 0.
-}
+Human::Human() : ship(new Ship()),
+                 hitCountComputer(0) {}
 
 /**
  * Get the ship object.
  * @return The Ship object.
  */
-Ship Human::getShip() {
-    return *ship;
-}
+Ship Human::getShip() { return *ship; }
 
 /**
  * Read in Ship type, location, and orientation into a vector of Ship objects.
@@ -155,7 +151,7 @@ int Human::humanFires(string &choice, Game &newGame) {
  * @param choice The target the user decided to fire.
  * @return A tally of the number of ships hit.
  */
-int Human::_numComputerShipsHit(Game &newGame, GridIndex &index, int i, std::string &choice) {
+int Human::_numComputerShipsHit(Game &newGame, GridIndex &index, int &i, std::string &choice) {
 
     // If there's not already a mark on the Grid...
     if (newGame.trackerBoard.GRID[index.row][index.column] != 'O') {

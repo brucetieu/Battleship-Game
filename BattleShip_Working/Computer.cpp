@@ -1,5 +1,6 @@
 //
 // Created by Bruce Tieu on 11/14/20.
+// Implement the functions which were declared in Computer.h
 //
 
 #include "Computer.h"
@@ -14,19 +15,25 @@
 
 using namespace std;
 
+/**
+ * Initialize variables in the Constructor.
+ */
 Computer::Computer() : shipTypes{"Carrier", "Battleship", "Cruiser", "Submarine", "Destroyer"},
                        shipSizes{5, 4, 3, 3, 2},
                        shipOrientations{"H", "V"},
                        letters {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"},
                        hitCountHuman(0) {}
 
-
-
+/**
+ * Get the computerShips vector.
+ * @return A vector of Ship objects.
+ */
 vector<Ship> Computer::getComputerShips() {
     return computerShips;
 }
+
 /**
- * Randomize ship locations for computer;
+ * Randomize ship locations for computer.
  * @return A random string like "00" representing row 0, column 0".
  */
 string Computer::randShipLocation() {
@@ -56,8 +63,10 @@ string Computer::randShipOrientation() {
  */
 void Computer::randShipPlacement() {
 
+    // Clear out any previous Ships.
     computerShips.clear();
 
+    // Create a randomized vector of Ship objects with random location and orientation.
     for (int i = 0; i < 5; i++) {
         computerShips.push_back(Ship(shipTypes[i], shipSizes[i], randShipLocation(), randShipOrientation()));
     }
@@ -78,6 +87,7 @@ void Computer::printRandShips() {
 
 /**
  * Continue generating random placements until there's no overlap and all ships are in bounds.
+ * @return The new vector of Ship objects which have correct ship placements.
  */
 vector<Ship> Computer::generateCorrectPlacements() {
     vector<Ship> newVecOfShips;
@@ -85,10 +95,13 @@ vector<Ship> Computer::generateCorrectPlacements() {
     newVecOfShips = getPossibleShipLocations(computerShips);
 
     for(;;) {
+
+        // If placement is already valid, break out of the loop.
         if (shipsDontOverlap(newVecOfShips) && shipsAreInBounds(newVecOfShips)) {
             break;
+
+            // Otherwise, keep generating placements over and over till we get a valid arrangement.
         } else {
-//            cout << "Generating..." << endl;
             randShipPlacement();
             newVecOfShips = getPossibleShipLocations(computerShips);
         }
@@ -96,10 +109,12 @@ vector<Ship> Computer::generateCorrectPlacements() {
     return newVecOfShips;
 }
 
+/**
+ * Computer 'places' the ship on the board.
+ * @return The Grid of placements.
+ */
 Grid Computer::placeShipsOnBoard() {
     Grid grid;
-
-    Helpers helpers;
 
     for (int i = 0; i < computerShips.size(); i++) {
 
@@ -125,15 +140,19 @@ Grid Computer::placeShipsOnBoard() {
     return grid;
 }
 
+/**
+ * Computer 'fires' at a target.
+ * @param newGame The current Game instance.
+ * @return A tally which keeps track of the score.
+ */
 int Computer::computerFires(Game &newGame) {
 
     // Computer fires.
     Helpers helpers;
     Computer computer;
-//    Grid humanBoard = newGame.getHumanBoard();
 
-    // Generate random target.
-    string randChoice = computer.randShipLocation(); // e.g A1.
+    // Generate random target. e.g A1.
+    string randChoice = computer.randShipLocation();
 
     // E.g change A1 -> 00.
     string computerChoice = helpers.parseLocationToString(randChoice);
@@ -141,63 +160,47 @@ int Computer::computerFires(Game &newGame) {
     // Change A1 -> (0,0).
     GridIndex index = helpers.parseLocationToIndex(randChoice);
 
-
     for (int i = 0; i < newGame.humanPossibleShipLocs.size(); i++) {
         for (int j = 0; j < newGame.humanPossibleShipLocs[i].possibleShipLocations.size(); j++) {
             if (computerChoice == newGame.humanPossibleShipLocs[i].possibleShipLocations[j]) {
-//                newGame.humanPossibleShipLocs[i].possibleShipLocations.erase(newGame.humanPossibleShipLocs[i].possibleShipLocations.begin() + j);
 
+                // Private helper method which performs logic for hitting a human ship.
                 return _numHumanShipsHit(newGame, index, i, randChoice);
-//                if (newGame.humanBoard.GRID[index.row][index.column] != 'O') {
-//                    hitCountHuman += 1;
-//                    newGame.humanPossibleShipLocs[i].shipSize--;
-//                    if (newGame.humanPossibleShipLocs[i].shipSize == 0) {
-//                        cout << newGame.humanPossibleShipLocs[i].shipType << " is sunk!" << endl;
-//                    } else {
-//                        cout << "Hit " << newGame.humanPossibleShipLocs[i].shipType << " at " << randChoice << "!" << endl;
-//                    }
-//                } else {
-//                    cout << newGame.humanPossibleShipLocs[i].shipType << " is already hit!" << endl;
-//                }
-//
-//                cout << "Human ships hit: " << hitCountHuman << endl;
-//
-//                newGame.humanBoard.GRID[index.row][index.column] = 'O';
-//                cout << "Human board: " << endl;
-//                newGame.humanBoard.printGrid();
-//                cout << endl;
-//                return hitCountHuman;
             }
         }
     }
-
+    // Private helper method which performs logic for missing a human ship.
     return _numHumanShipsMissed(newGame, index, randChoice);
-//    cout << randChoice << " is a miss!" << endl << endl;
-//
-//    newGame.humanBoard.GRID[index.row][index.column] = 'X';
-//
-//    cout << "Your board: " << endl;
-//    newGame.humanBoard.printGrid();
-//    cout << endl;
-
-//    return 0;
-    return hitCountHuman;
-
 }
 
-int Computer::_numHumanShipsHit(Game &newGame, GridIndex &index, int i, std::string &choice) {
+/**
+ * Perform required logic when a human's ship is hit.
+ * @param newGame The current game state.
+ * @param index The row and column of the target.
+ * @param i The current ship which was hit and stored in a vector.
+ * @param choice The target the user decided to fire.
+ * @return A tally of the number of ships hit.
+ */
+int Computer::_numHumanShipsHit(Game &newGame, GridIndex &index, int &i, std::string &choice) {
+
+    // If hit.
     if (newGame.humanBoard.GRID[index.row][index.column] != 'O') {
-            hitCountHuman += 1;
-            newGame.humanPossibleShipLocs[i].shipSize--;
+            hitCountHuman += 1;  // Update score.
+            newGame.humanPossibleShipLocs[i].shipSize--;  // Decrement size of ship to indicate it was hit.
+
+            // Output message when a ship is sunk.
             if (newGame.humanPossibleShipLocs[i].shipSize == 0) {
                 cout << newGame.humanPossibleShipLocs[i].shipType << " is sunk!" << endl;
             } else {
                 cout << "Hit " << newGame.humanPossibleShipLocs[i].shipType << " at " << choice << "!" << endl;
             }
+
+            // Handle case when ship is already hit.
         } else {
             cout << newGame.humanPossibleShipLocs[i].shipType << " is already hit!" << endl;
         }
 
+        // Update the human's board and print it out.
         cout << "Human ships hit: " << hitCountHuman << endl;
 
         newGame.humanBoard.GRID[index.row][index.column] = 'O';
@@ -207,9 +210,17 @@ int Computer::_numHumanShipsHit(Game &newGame, GridIndex &index, int i, std::str
         return hitCountHuman;
 }
 
+/**
+ * Perform required logic when there's a miss.
+ * @param newGame The current game instance.
+ * @param index The row and column of the ship's location.
+ * @param choice The target which was fired.
+ * @return A tally of the number of ships hit.
+ */
 int Computer::_numHumanShipsMissed(Game &newGame, GridIndex &index, std::string &choice) {
     cout << choice << " is a miss!" << endl << endl;
 
+    // Update human board when there's a miss.
     newGame.humanBoard.GRID[index.row][index.column] = 'X';
 
     cout << "Your board: " << endl;

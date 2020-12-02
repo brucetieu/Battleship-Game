@@ -26,7 +26,7 @@ private:
 
     int hitCountComputer;  // Hold number of computer ships which were hit.
 
-    int _numComputerShipsHit(Game &newGame, GridIndex &index, int i, std::string &choice);
+    int _numComputerShipsHit(Game &newGame, GridIndex &index, int &i, std::string &choice);
     int _numComputerShipsMissed(Game &newGame, GridIndex &index, std::string &choice);
 
 public:
