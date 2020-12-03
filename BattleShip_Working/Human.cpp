@@ -35,8 +35,9 @@ Ship Human::getShip() { return *ship; }
 vector <Ship> Human::readShipsFromFile(string filename) {
     ifstream infile;
 
-    try {
-        infile.open(filename);
+    infile.open(filename);
+
+    if (infile.good()) {
 
         while (infile.peek() != EOF) {
             getline(infile, ship->shipType, ',');
@@ -45,8 +46,8 @@ vector <Ship> Human::readShipsFromFile(string filename) {
 
             shipVector.push_back(*ship);
         }
-    } catch (const ifstream::failure &e) {
-        cout << "Error reading file" << endl;
+    } else  {
+        cerr << "Error reading file." << endl;
     }
 
     _addSizeToShips();  // Add sizes to each ship.
