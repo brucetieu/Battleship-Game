@@ -73,14 +73,14 @@ Game Game::buildGame(std::string filename) {
     // Construct the board for the player.
     Grid humanBoard = human.placeShipsOnBoard(vecOfShips, humanPossibleShipLocs);
     cout << "Here is your ship configuration: " << endl;
-    humanBoard.printGrid();
+    cout << humanBoard;
 
     cout << endl;
 
     // Create the tracking grid.
     cout << "Here is your tracking grid of shots you have fired: " << endl;
     Grid trackerBoard;
-    trackerBoard.printGrid();
+    cout << trackerBoard;
 
     // Return new game instance.
     return Game(humanBoard, trackerBoard, computerBoard, humanPossibleShipLocs, computerPossibleShipLocs);
@@ -152,13 +152,13 @@ void Game::playGame(Game &newGame) {
  */
 void Game::printResults(Game &newGame) {
     cout << "The computer's ship configuration: " << endl;
-    newGame.computerBoard.printGrid();
+    cout << newGame.computerBoard;
 
     cout << "Your board: " << endl;
-    newGame.humanBoard.printGrid();
+    cout << newGame.humanBoard;
 
     cout << "Your tracking board: " << endl;
-    newGame.trackerBoard.printGrid();
+    cout << newGame.trackerBoard;
 }
 
 

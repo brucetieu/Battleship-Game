@@ -46,28 +46,12 @@ int Grid::getColumn() const { return this->column; }
  * Get the mapping of alphabets.
  * @return The vector.
  */
-vector<char> Grid::getMAP() { return MAP; }
-
-/**
- * Print the Grid.
- */
-void Grid::printGrid() {
-    cout << "=================================" << endl;
-    printColumnLabel();
-    for (row = 0; row < MAX_ROW; row++) {
-        cout << MAP[row] << "  ";
-        for (column = 0; column < MAX_COLUMN; column++) {
-            cout << GRID[row][column] << " ";
-        }
-        cout << endl;
-    }
-    cout << "=================================" << endl;
-}
+vector<char> Grid::getMAP() const { return MAP; }
 
 /**
  * Print the column labels.
  */
-void Grid::printColumnLabel() {
+void Grid::printColumnLabel() const {
     cout << setw(4);
     for (int i = 0; i < MAX_ROW; i++) {
         cout << i + 1 << " ";
@@ -84,4 +68,25 @@ Grid::~Grid() {
             GRID[row][column] = '#';
         }
     }
+}
+
+/**
+ * Overload output stream << operator to print the Grid.
+ * @param output The output stream.
+ * @param grid The Grid object.
+ * @return The ostream object.
+ */
+ostream& operator << (ostream& output, const Grid &grid) {
+    int row, column;
+    output << "=================================" << endl;
+    grid.printColumnLabel();
+    for (row = 0; row < Grid::MAX_ROW; row++) {
+        output << grid.getMAP()[row] << "  ";
+        for (column = 0; column < Grid::MAX_COLUMN; column++) {
+            cout << grid.GRID[row][column] << " ";
+        }
+        output << endl;
+    }
+    output << "=================================" << endl;
+    return output;
 }

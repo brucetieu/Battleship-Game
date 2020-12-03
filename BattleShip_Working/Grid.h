@@ -28,12 +28,11 @@ public:
 
     int getColumn() const;
 
+    void printColumnLabel() const;
 
-    void printGrid();
+    std::vector<char> getMAP() const;
 
-    void printColumnLabel();
-
-    std::vector<char> getMAP();
+    friend std::ostream &operator<<( std::ostream &output, const Grid &grid );
 
 };
 

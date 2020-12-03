@@ -205,7 +205,7 @@ int Computer::_numHumanShipsHit(Game &newGame, GridIndex &index, int &i, std::st
 
         newGame.humanBoard.GRID[index.row][index.column] = 'O';
         cout << "Human board: " << endl;
-        newGame.humanBoard.printGrid();
+        cout << newGame.humanBoard;
         cout << endl;
         return hitCountHuman;
 }
@@ -224,7 +224,7 @@ int Computer::_numHumanShipsMissed(Game &newGame, GridIndex &index, std::string 
     newGame.humanBoard.GRID[index.row][index.column] = 'X';
 
     cout << "Your board: " << endl;
-    newGame.humanBoard.printGrid();
+    cout << newGame.humanBoard;
     cout << endl;
 
     return hitCountHuman;

@@ -187,7 +187,8 @@ int Human::_numComputerShipsHit(Game &newGame, GridIndex &index, int &i, std::st
 
     // Print out the updated tracker grid.
     cout << "Your tracking grid: " << endl;
-    newGame.trackerBoard.printGrid();
+
+    cout << newGame.trackerBoard;
 
     return hitCountComputer;
 }
@@ -207,10 +208,11 @@ int Human::_numComputerShipsMissed(Game &newGame, GridIndex &index, std::string 
 
     // Print out updated human board along with the tracking grid.
     cout << "Your board:" << endl;
-    newGame.humanBoard.printGrid();
+
+    cout << newGame.humanBoard;
     cout << endl;
     cout << "Your tracker board: " << endl;
-    newGame.trackerBoard.printGrid();
 
+    cout << newGame.trackerBoard;
     return hitCountComputer;
 }
