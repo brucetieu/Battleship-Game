@@ -20,9 +20,9 @@ private:
     std::string letters[10];  // Hold A - J
     int shipSizes[5];  // 5, 4, 3, 3, 2
     std::string shipOrientations[2]; // H or V
-    std::vector<Ship> shipLocations; // Hold the ship locations: 00, 01, 02, ...
+    std::vector<Ship> shipLocations; // Hold the ship locations: 00, 01, 02, ..., 99
 
-    int hitCountHuman;
+    int hitCountHuman;  // Count num of ships the computer hit.
 
     int _numHumanShipsHit(Game &newGame, GridIndex &index, int &i, std::string &choice);
     int _numHumanShipsMissed(Game &newGame, GridIndex &index, std::string &choice);
@@ -36,11 +36,10 @@ public:
     std::string randShipOrientation();  // Randomize ship orientation.
     std::vector<Ship> getComputerShips();
 
+    std::vector<Ship> generateCorrectPlacements();  // Generate correct ship placements
+    Grid placeShipsOnBoard();  // Place the ships on the Board.
 
-    std::vector<Ship> generateCorrectPlacements();
-    Grid placeShipsOnBoard();
-
-    int computerFires(Game &newGame);
+    int computerFires(Game &newGame);  // Computer is firing.
 
 };
 
