@@ -1,5 +1,6 @@
 //
 // Created by Bruce Tieu on 11/6/20.
+// Function implementations for Player.h.
 //
 
 #include "Player.h"
@@ -15,13 +16,12 @@ using namespace std;
 /**
  * Check if ships are in bounds. The locations are converted to row and columns.
  * @param vecOfShips
- * @return
+ * @return True, if ships are in bounds and False otherwise.
  */
 bool Player::shipsAreInBounds(vector <Ship> &newVecOfShips) {
     for (int i = 0; i < newVecOfShips.size(); i++) {
         for (int j = 0; j < newVecOfShips[i].possibleShipLocations.size(); j++) {
             if (newVecOfShips[i].possibleShipLocations[j].length() > 2) {
-//                cout << "Ship " << newVecOfShips[i].shipType << " is out of bounds: " << newVecOfShips[i].possibleShipLocations[j] << endl;
                 return false;
             }
         }
@@ -43,12 +43,12 @@ bool Player::allShipsAreIncluded(std::vector <Ship> &vecOfShips) {
 }
 
 /**
- * Get all possible locations for each ship. For example,
+ * Get all possible locations for each ship. For example, [B5, H] -> [B5, B6, B7, B8, B9, B10].
  * @param vecOfShips The original vector of ships which was populated from ships in the file.
- * @return
+ * @return The vector of Ship objects with all placements.
  */
 vector<Ship> Player::getPossibleShipLocations(std::vector <Ship> &vecOfShips) {
-    Helpers helpers;
+
     vector<Ship> newVecOfShips;
 
     for (int i = 0; i < vecOfShips.size(); i++) {
@@ -88,9 +88,9 @@ vector<Ship> Player::getPossibleShipLocations(std::vector <Ship> &vecOfShips) {
 }
 
 /**
- *
+ * Check if there is overlap in ship placements or not.
  * @param newVecOfShips The new vector of ships with all possible coordinates of each ship. The coords are in row/col.
- * @return
+ * @return True, if no overlap, false otherwise.
  */
 bool Player::shipsDontOverlap(vector<Ship> &newVecOfShips) {
 
@@ -105,7 +105,6 @@ bool Player::shipsDontOverlap(vector<Ship> &newVecOfShips) {
 
                 // If we see an element twice => overlap!
             else {
-//                cout << "Overlap in this location: " << newVecOfShips[i].possibleShipLocations[j] << endl;
                 return false;
             }
         }
