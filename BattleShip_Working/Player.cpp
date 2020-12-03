@@ -15,7 +15,7 @@ using namespace std;
 
 /**
  * Check if ships are in bounds. The locations are converted to row and columns.
- * @param vecOfShips
+ * @param vecOfShips The vector of ship location (what was read in from the file).
  * @return True, if ships are in bounds and False otherwise.
  */
 bool Player::shipsAreInBounds(vector <Ship> &newVecOfShips) {
@@ -49,10 +49,10 @@ bool Player::allShipsAreIncluded(std::vector <Ship> &vecOfShips) {
  */
 vector<Ship> Player::getPossibleShipLocations(std::vector <Ship> &vecOfShips) {
 
-    vector<Ship> newVecOfShips;
+    vector<Ship> newVecOfShips;  // This holds all possible ship locations.
 
     for (int i = 0; i < vecOfShips.size(); i++) {
-        vector<string> tempVector;
+        vector<string> tempVector;  // Temp vector to store locations in, will be pushed into newVecOfShips.
 
         // Parse location of A1 -> 00, A2 -> 01, etc.
         GridIndex indices = helpers.parseLocationToIndex(vecOfShips[i].shipLocation);
@@ -99,6 +99,8 @@ bool Player::shipsDontOverlap(vector<Ship> &newVecOfShips) {
 
     for (int i = 0; i < newVecOfShips.size(); i++) {
         for (int j = 0; j < newVecOfShips[i].possibleShipLocations.size(); j++) {
+
+            // No overlap case.
             if (find(uniques.begin(), uniques.end(), newVecOfShips[i].possibleShipLocations[j]) == uniques.end()) {
                 uniques.push_back(newVecOfShips[i].possibleShipLocations[j]);
             }
