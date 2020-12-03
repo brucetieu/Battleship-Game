@@ -1,6 +1,6 @@
 //
 // Created by Bruce Tieu on 11/14/20.
-// Declare all functions which can be performed by the Computer.cvra
+// Declare all functions which can be performed by the Computer.
 //
 
 #ifndef BATTLESHIP_WORKING_COMPUTER_H
@@ -24,8 +24,8 @@ private:
 
     int hitCountHuman;  // Count num of ships the computer hit.
 
-    int _numHumanShipsHit(Game &newGame, GridIndex &index, int &i, std::string &choice);
-    int _numHumanShipsMissed(Game &newGame, GridIndex &index, std::string &choice);
+    int _numHumanShipsHit(Game &newGame, GridIndex &index, int &i, std::string &choice);  // Return num of human ships hit.
+    int _numHumanShipsMissed(Game &newGame, GridIndex &index, std::string &choice); // Return num of human ships missed.
 
 public:
 
