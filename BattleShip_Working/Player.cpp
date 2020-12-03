@@ -49,10 +49,10 @@ bool Player::allShipsAreIncluded(std::vector <Ship> &vecOfShips) {
  */
 vector<Ship> Player::getPossibleShipLocations(std::vector <Ship> &vecOfShips) {
 
-    vector<Ship> newVecOfShips;
+    vector<Ship> newVecOfShips;  // This holds all possible ship locations.
 
     for (int i = 0; i < vecOfShips.size(); i++) {
-        vector<string> tempVector;
+        vector<string> tempVector;  // Temp vector to store locations in, will be pushed into newVecOfShips.
 
         // Parse location of A1 -> 00, A2 -> 01, etc.
         GridIndex indices = helpers.parseLocationToIndex(vecOfShips[i].shipLocation);
