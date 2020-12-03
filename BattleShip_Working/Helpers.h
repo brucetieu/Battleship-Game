@@ -6,6 +6,7 @@
 #define BATTLESHIP_WORKING_HELPERS_H
 #include "GridIndex.h"
 #include "Grid.h"
+#include <string>
 
 /**
  * Helper class to check if ships can be arranged properly.s

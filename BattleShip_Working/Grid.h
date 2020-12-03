@@ -4,6 +4,7 @@
 #define GRID_H
 
 #include <vector>
+#include <ostream>
 
 class Grid {
 private:
