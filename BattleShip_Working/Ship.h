@@ -4,25 +4,20 @@
 #include <vector>
 #include "Grid.h"
 
+/**
+ * Store ships as a container.
+ */
 class Ship
 {
-// private:
-    struct ShipData
-    {
-        std::string shipType;
-        std::string shipSize;
-        std::string shipOrientation;
-        std::string shipLocation;
-    };
-    std::vector<ShipData> shipContainer;
-    Grid grid;
 
 public:
+    std::string shipType, shipLocation, shipOrientation;
+    int shipSize;
+    std::vector<std::string> possibleShipLocations;
     Ship();
-    void readInShips();
-    bool checkShipPlacement(vector<ShipData> &container);
-    void addSizeToShips(ShipData &shipData);
-    void populateGrid(ShipData &shipData);
+    Ship(std::string shipType, int shipSize, std::string shipLocation, std::string shipOrientation);
+    Ship(std::string shipType, int shipSize, std::vector<std::string> possibleShipLocations);
+
 };
 
 #endif

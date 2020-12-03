@@ -1,36 +1,26 @@
 #include <iostream>
 #include <string>
 #include "Grid.h"
+#include "Game.h"
 #include "Ship.h"
+#include "Helpers.h"
+#include "Computer.h"
+#include "Human.h"
 
 using namespace std;
 
+/**
+ * Main driver for playing the game.
+ * @return 0 to indicate a successful program.
+ */
 int main()
 {
-    Ship ship;
-    ship.readInShips();
+    // Create a game instance and play it.
+    Game game;
 
-    
-    // Grid grid;
-
-    // grid.createGrid();
-
-    // int i = 0;
-    // while (i < 1)
-    // {
-
-    //     string x;
-    //     cout << "Chose a location: ";
-    //     cin >> x;
-
-    //     Grid grid_ = grid.chooseGridLoc(x);
-    //     grid.updateGrid(grid_);
-
-    //     i++;
-    // }
-
-    // grid.clearGrid();
-    // grid.printGrid();
+    // Specify the ship arrangement file you want to pass in.
+    Game newGame = game.buildGame("ship_placement1_good.csv");
+    game.playGame(newGame);  // Play the game.
 
     return 0;
 }
