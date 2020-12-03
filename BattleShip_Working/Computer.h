@@ -1,6 +1,6 @@
 //
 // Created by Bruce Tieu on 11/14/20.
-// Declare all functions which can be performed by the Computer.
+// Declare all functions which can be performed by the Computer.cvra
 //
 
 #ifndef BATTLESHIP_WORKING_COMPUTER_H

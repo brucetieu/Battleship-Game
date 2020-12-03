@@ -5,6 +5,9 @@
 #ifndef BATTLESHIP_WORKING_POINT_H
 #define BATTLESHIP_WORKING_POINT_H
 
+/**
+ * Struct which holds the row and column positions of the 2D Grid.
+ */
 struct GridIndex {
     int row, column;
 };

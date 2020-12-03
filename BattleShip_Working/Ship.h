@@ -9,8 +9,6 @@
  */
 class Ship
 {
-//private:
-//    std::string shipType, shipSize, shipLocation, shipOrientation;
 
 public:
     std::string shipType, shipLocation, shipOrientation;
@@ -19,10 +17,7 @@ public:
     Ship();
     Ship(std::string shipType, int shipSize, std::string shipLocation, std::string shipOrientation);
     Ship(std::string shipType, int shipSize, std::vector<std::string> possibleShipLocations);
-//    void readInShips();
-//    bool checkShipPlacement(vector<ShipData> &container);
-//    void addSizeToShips(ShipData &shipData);
-//    void populateGrid(ShipData &shipData);
+
 };
 
 #endif

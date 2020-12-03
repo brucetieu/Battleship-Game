@@ -8,15 +8,13 @@
 #include "Grid.h"
 
 /**
- * Helper class to check if ships can be arranged.
+ * Helper class to check if ships can be arranged properly.s
  */
 class Helpers {
 
 private:
     Grid grid;
 public:
-
-    // TODO: Change funciton name to commented out one below.
 
     GridIndex parseLocationToIndex(std::string &location);
     std::string parseLocationToString(std::string &location);
@@ -28,8 +26,6 @@ public:
     bool isEmpty(std::string &choice);
 
     std::string toUpper(std::string &str);
-
-//    bool checkLocationOfShip(GridIndex &gridIndex);
 
 };
 
