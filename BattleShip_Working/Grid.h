@@ -6,6 +6,9 @@
 #include <vector>
 #include <ostream>
 
+/**
+ * Class for creating the Board / Grid.
+ */
 class Grid {
 private:
 
