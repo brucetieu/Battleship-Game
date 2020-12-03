@@ -35,11 +35,11 @@ bool Player::shipsAreInBounds(vector <Ship> &newVecOfShips) {
  * @return True, if all ships are included, false otherwise.
  */
 bool Player::allShipsAreIncluded(std::vector <Ship> &vecOfShips) {
-    if (vecOfShips.size() < 5) {
-        cout << "Num of ships: " << vecOfShips.size() << " Not all ships are included." << endl;
-        return false;
+    if (vecOfShips.size() == 5) {
+        return true;
     }
-    return true;
+    cout << "Num of ships: " << vecOfShips.size() << " Not all ships are included." << endl;
+    return false;
 }
 
 /**
