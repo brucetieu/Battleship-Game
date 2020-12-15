@@ -121,7 +121,7 @@ Grid Computer::placeShipsOnBoard() {
         GridIndex indices = helpers.parseLocationToIndex(computerShips[i].shipLocation);
 
         // Fix rows, update columns if ship is horizontal.
-        if (computerShips[i].shipOrientation.find("H") != std::string::npos) {
+        if (computerShips[i].shipOrientation.find(Ship::HORIZONTAL) != std::string::npos) {
             for (int row = indices.row; row <= indices.row; row++) {
                 for (int col = indices.column; col < computerShips[i].shipSize + indices.column; col++) {
                     grid.GRID[row][col] = computerShips[i].shipType[0];
@@ -129,7 +129,7 @@ Grid Computer::placeShipsOnBoard() {
             }
         }
             // Fix columns, update rows if ship is vertical.
-        else if (computerShips[i].shipOrientation.find("V") != std::string::npos) {
+        else if (computerShips[i].shipOrientation.find(Ship::VERTICAL) != std::string::npos) {
             for (int col = indices.column; col <= indices.column; col++) {
                 for (int row = indices.row; row < computerShips[i].shipSize + indices.row; row++) {
                     grid.GRID[row][col] = computerShips[i].shipType[0];

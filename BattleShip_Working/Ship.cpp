@@ -8,6 +8,14 @@
 
 using namespace std;
 
+const string Ship::CARRIER = "Carrier";
+const string Ship::BATTLESHIP = "Battleship";
+const string Ship::CRUISER = "Cruiser";
+const string Ship::SUBMARINE = "Submarine";
+const string Ship::DESTROYER = "Destroyer";
+const string Ship::HORIZONTAL = "H";
+const string Ship::VERTICAL = "V";
+
 Ship::Ship() {}
 
 /**

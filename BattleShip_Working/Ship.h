@@ -11,6 +11,17 @@ class Ship
 {
 
 public:
+
+    // Specify the types of ships which are available.
+    static const std::string CARRIER;
+    static const std::string BATTLESHIP;
+    static const std::string CRUISER;
+    static const std::string SUBMARINE;
+    static const std::string DESTROYER;
+
+    static const std::string HORIZONTAL;
+    static const std::string VERTICAL;
+
     std::string shipType, shipLocation, shipOrientation;
     int shipSize;
     std::vector<std::string> possibleShipLocations;

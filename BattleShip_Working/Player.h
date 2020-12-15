@@ -14,6 +14,8 @@
 class Player {
 private:
     Helpers helpers; // Use helpers throughout the class.
+    const int MAX_SHIP_SIZE = 5;
+    const int MAX_LEN_SHIP_LOCATION = 2;
 public:
     bool shipsAreInBounds(std::vector<Ship> &vecOfShips);
     std::vector<Ship> getPossibleShipLocations(std::vector<Ship> &vecOfShips);

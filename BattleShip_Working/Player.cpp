@@ -21,7 +21,7 @@ using namespace std;
 bool Player::shipsAreInBounds(vector <Ship> &newVecOfShips) {
     for (int i = 0; i < newVecOfShips.size(); i++) {
         for (int j = 0; j < newVecOfShips[i].possibleShipLocations.size(); j++) {
-            if (newVecOfShips[i].possibleShipLocations[j].length() > 2) {
+            if (newVecOfShips[i].possibleShipLocations[j].length() > MAX_LEN_SHIP_LOCATION) {
                 return false;
             }
         }
@@ -35,7 +35,7 @@ bool Player::shipsAreInBounds(vector <Ship> &newVecOfShips) {
  * @return True, if all ships are included, false otherwise.
  */
 bool Player::allShipsAreIncluded(std::vector <Ship> &vecOfShips) {
-    if (vecOfShips.size() == 5) {
+    if (vecOfShips.size() == MAX_SHIP_SIZE) {
         return true;
     }
     cout << "Num of ships: " << vecOfShips.size() << " Not all ships are included." << endl;

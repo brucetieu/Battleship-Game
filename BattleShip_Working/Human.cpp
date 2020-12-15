@@ -62,15 +62,15 @@ vector <Ship> Human::readShipsFromFile(string filename) {
  */
 void Human::_addSizeToShips() {
     for (int i = 0; i < shipVector.size(); i++) {
-        if (shipVector[i].shipType.find("Carrier") != string::npos) {
+        if (shipVector[i].shipType.find(Ship::CARRIER) != string::npos) {
             shipVector[i].shipSize = 5;
-        } else if (shipVector[i].shipType == "Battleship") {
+        } else if (shipVector[i].shipType == Ship::BATTLESHIP) {
             shipVector[i].shipSize = 4;
-        } else if (shipVector[i].shipType == "Cruiser") {
+        } else if (shipVector[i].shipType == Ship::CRUISER) {
             shipVector[i].shipSize = 3;
-        } else if (shipVector[i].shipType == "Submarine") {
+        } else if (shipVector[i].shipType == Ship::SUBMARINE) {
             shipVector[i].shipSize = 3;
-        } else if (shipVector[i].shipType.find("Destroyer") != string::npos) {
+        } else if (shipVector[i].shipType.find(Ship::DESTROYER) != string::npos) {
             shipVector[i].shipSize = 2;
         }
     }
@@ -96,7 +96,7 @@ Grid Human::placeShipsOnBoard(vector <Ship> &vecOfShips, vector <Ship> &newVecOf
             GridIndex indices = helpers.parseLocationToIndex(shipVector[i].shipLocation);
 
             // Fix rows, update columns if ship is horizontal.
-            if (shipVector[i].shipOrientation.find("H") != std::string::npos) {
+            if (shipVector[i].shipOrientation.find(Ship::HORIZONTAL) != std::string::npos) {
                 for (int row = indices.row; row <= indices.row; row++) {
                     for (int col = indices.column; col < shipVector[i].shipSize + indices.column; col++) {
                         grid.GRID[row][col] = shipVector[i].shipType[0]; // Put the first letter of each ship in the Grid.
@@ -104,7 +104,7 @@ Grid Human::placeShipsOnBoard(vector <Ship> &vecOfShips, vector <Ship> &newVecOf
                 }
             }
                 // Fix columns, update rows if ship is vertical.
-            else if (shipVector[i].shipOrientation.find("V") != std::string::npos) {
+            else if (shipVector[i].shipOrientation.find(Ship::VERTICAL) != std::string::npos) {
                 for (int col = indices.column; col <= indices.column; col++) {
                     for (int row = indices.row; row < shipVector[i].shipSize + indices.row; row++) {
                         grid.GRID[row][col] = shipVector[i].shipType[0];
@@ -156,7 +156,7 @@ int Human::humanFires(string &choice, Game &newGame) {
  * @param choice The target the user decided to fire.
  * @return A tally of the number of ships hit.
  */
-int Human::_numComputerShipsHit(Game &newGame, GridIndex &index, int &i, std::string &choice) {
+int Human::_numComputerShipsHit(Game &newGame, GridIndex &index, int &i, string &choice) {
 
     // If there's not already a mark on the Grid...
     if (newGame.trackerBoard.GRID[index.row][index.column] != 'O') {
