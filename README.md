@@ -1,2 +1,2 @@
 # Batteship-Game
-Battleship Final Project for OOP course.
+A Simple Battleship Game.
